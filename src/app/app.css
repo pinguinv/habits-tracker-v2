@@ -1,0 +1,31 @@
+@keyframes slide-out {
+  0% {
+    @apply -top-16;
+  }
+  100% {
+    @apply top-3;
+  }
+}
+
+.animate-slide-out {
+  animation-name: slide-out;
+  animation-duration: 500ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes slide-under {
+  0% {
+    @apply top-3;
+  }
+  100% {
+    @apply -top-16;
+  }
+}
+
+.animate-slide-under {
+  animation-name: slide-under;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}

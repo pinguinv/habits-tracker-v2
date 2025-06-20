@@ -14,3 +14,14 @@ body {
 
   @apply text-on-surface bg-background;
 }
+
+/* Code in App.ngOnInit() will remove this class from body 
+  after some delay so animations can happen in normal time.
+  
+  This 'preload' class exists because after refresh (when on 
+  page different than 'habits') disabled button appears 
+  'out of nowhere' and slides under the navigation - it 
+  looks terrible */
+body.preload * {
+  animation-duration: 0s !important;
+}

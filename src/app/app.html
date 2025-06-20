@@ -1,5 +1,5 @@
 <div
-  class="w-full flex flex-col font-bold text-3xl pt-2 bg-on-primary-fixed-variant text-primary"
+  class="w-full flex relative z-10 flex-col font-bold text-3xl pt-2 bg-on-primary-fixed-variant text-primary"
 >
   <div class="w-full flex justify-center pb-2">Habits Tracker v2</div>
   <div class="flex justify-center sm:gap-x-8">
@@ -17,6 +17,19 @@
       Charts
     </button>
   </div>
+</div>
+
+<div class="fixed end-0">
+  <button
+    matFab
+    class="absolute end-4 -top-16"
+    [disabled]="!showButton()"
+    [class]="{'animate-slide-out': showButton(), 
+    'animate-slide-under': !showButton()}"
+    title="Add New Habit"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
 
 <router-outlet></router-outlet>
