@@ -27,6 +27,7 @@
     [class]="{'animate-slide-out': showButton(), 
     'animate-slide-under': !showButton()}"
     title="Add New Habit"
+    (click)="openAddHabitDialog()"
   >
     <mat-icon>add</mat-icon>
   </button>

@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   height: 100%;
@@ -13,6 +11,10 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 
   @apply text-on-surface bg-background;
+
+  /* Scrollbar style for Firefox */
+  scrollbar-color: #2d3131 #101414;
+  scrollbar-width: thin;
 }
 
 /* Code in App.ngOnInit() will remove this class from body 
@@ -24,4 +26,36 @@ body {
   looks terrible */
 body.preload * {
   animation-duration: 0s !important;
+}
+
+/* Scrollbar style for older browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #101414;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2d3131;
+  border-radius: 20px;
+}
+
+/* Hide scrollbar in textareas */
+textarea::-webkit-scrollbar {
+  appearance: none;
+}
+
+textarea {
+  scrollbar-width: none;
+}
+
+/* Hide spinners in number inputs */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
