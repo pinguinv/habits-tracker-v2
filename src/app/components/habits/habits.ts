@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-habits',
   imports: [CommonModule],
   templateUrl: './habits.html',
-  styleUrl: './habits.css'
+  styleUrl: './habits.scss'
 })
 export class Habits {}

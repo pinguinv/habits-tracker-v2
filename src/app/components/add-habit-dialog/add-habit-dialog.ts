@@ -31,7 +31,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatRadioModule,
   ],
   templateUrl: './add-habit-dialog.html',
-  styleUrl: './add-habit-dialog.css',
+  styleUrl: './add-habit-dialog.scss',
 })
 export class AddHabitDialog {
   protected habitFormGroup: FormGroup<HabitFormGroupType>;

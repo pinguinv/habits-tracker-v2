@@ -20,7 +20,7 @@ import { AddHabitDialog } from './components/add-habit-dialog/add-habit-dialog';
   ],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.scss',
 })
 export class App implements OnInit {
   private router = inject(Router);

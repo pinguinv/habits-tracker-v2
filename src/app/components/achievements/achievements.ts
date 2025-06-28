@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-achievements',
   imports: [CommonModule],
   templateUrl: './achievements.html',
-  styleUrl: './achievements.css'
+  styleUrl: './achievements.scss'
 })
 export class Achievements {}
