@@ -1,1 +1,15 @@
-<p>habits works!</p>
+<main class="flex justify-center">
+  <div class="w-full pt-4 px-2 sm:w-[600px] lg:w-[860px] flex flex-col gap-y-4">
+    @for (habit of store.habits(); track $index) {
+    <app-habit [habitData]="habit" />
+    } @if (!store.isLoadedData()) {
+    <div class="w-full flex justify-center pt-8">
+      <mat-spinner></mat-spinner>
+    </div>
+    } @else if (store.habits().length === 0) {
+    <div class="w-full flex justify-center pt-8 text-xl">
+      No habits to display.
+    </div>
+    }
+  </div>
+</main>

@@ -1,7 +1,11 @@
 <h2 mat-dialog-title>Add Habit</h2>
 <mat-dialog-content class="!pb-1">
-  <form [formGroup]="habitFormGroup" class="grid grid-cols-1 gap-4">
-    <mat-form-field class="h-min">
+  <form
+    [formGroup]="habitForm"
+    (submit)="saveAndCloseDialog()"
+    class="grid grid-cols-1 gap-4"
+  >
+    <mat-form-field hideRequiredMarker>
       <mat-label>Habit Title</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
@@ -28,6 +32,12 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button matButton [mat-dialog-close]="true">Cancel</button>
-  <button matButton [mat-dialog-close]="true">Add Habit</button>
+  <button matButton mat-dialog-close>Cancel</button>
+  <button
+    matButton
+    [disabled]="habitForm.invalid"
+    (click)="saveAndCloseDialog()"
+  >
+    Add Habit
+  </button>
 </mat-dialog-actions>

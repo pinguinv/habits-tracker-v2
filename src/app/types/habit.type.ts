@@ -1,4 +1,4 @@
-export type Habit = {
+export type HabitType = {
   id: number;
   title: string;
   shortDescription: string;
