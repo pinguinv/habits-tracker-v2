@@ -1,0 +1,49 @@
+@use '@angular/material' as mat;
+
+mat-radio-button[value='cyan'] {
+  @include mat.radio-overrides(
+    (
+      selected-focus-icon-color: cyan,
+      selected-hover-icon-color: cyan,
+      selected-icon-color: cyan,
+      checked-ripple-color: cyan,
+      selected-pressed-icon-color: cyan,
+    )
+  );
+}
+
+mat-radio-button[value='magenta'] {
+  @include mat.radio-overrides(
+    (
+      selected-focus-icon-color: magenta,
+      selected-hover-icon-color: magenta,
+      selected-icon-color: magenta,
+      checked-ripple-color: magenta,
+      selected-pressed-icon-color: magenta,
+    )
+  );
+}
+
+mat-radio-button[value='orange'] {
+  @include mat.radio-overrides(
+    (
+      selected-focus-icon-color: orange,
+      selected-hover-icon-color: orange,
+      selected-icon-color: orange,
+      checked-ripple-color: orange,
+      selected-pressed-icon-color: orange,
+    )
+  );
+}
+
+mat-radio-button[value='yellow'] {
+  @include mat.radio-overrides(
+    (
+      selected-focus-icon-color: yellow,
+      selected-hover-icon-color: yellow,
+      selected-icon-color: yellow,
+      checked-ripple-color: yellow,
+      selected-pressed-icon-color: yellow,
+    )
+  );
+}
