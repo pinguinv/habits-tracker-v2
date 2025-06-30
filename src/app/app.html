@@ -1,7 +1,7 @@
 <div
   class="w-full flex relative z-10 flex-col font-bold text-3xl pt-2 bg-on-primary-fixed-variant text-primary"
 >
-  <h1 class="w-full flex justify-center pb-2">Habits Tracker v2</h1>
+  <h1 class="w-full flex justify-center pb-2">Habits Tracker</h1>
   <div class="flex justify-center sm:gap-x-8">
     @for (routeButton of routeButtons; track $index) {
     <button
@@ -15,10 +15,10 @@
   </div>
 </div>
 
-<div class="fixed end-0">
+<div class="fixed end-0 max-md:bottom-0">
   <button
     matFab
-    class="absolute end-4 -top-16"
+    class="absolute end-4 -top-16 max-md:top-auto"
     [disabled]="!showButton()"
     [class]="{'animate-slide-out': showButton(), 
     'animate-slide-under': !showButton()}"
