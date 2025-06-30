@@ -10,10 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-
-import { HabitFormGroupType } from '../../types/habit-form-group-type';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+
+import { HabitFormGroupType } from '../../types/habit-form-group.type';
 
 @Component({
   selector: 'app-add-habit-dialog',
@@ -43,11 +43,6 @@ export class AddHabitDialog {
     this.habitFormGroup = new FormGroup({
       title: new FormControl(''),
       shortDescription: new FormControl(''),
-      howOften: new FormControl(''),
-      howManyTimesPerPeriod: new FormControl(1),
-      hourOfTheDay: new FormControl(initialTimeValue),
-      durationTime: new FormControl(0),
-      setReminder: new FormControl(true),
       color: new FormControl('cyan'),
     });
   }

@@ -1,9 +1,6 @@
 <h2 mat-dialog-title>Add Habit</h2>
-<mat-dialog-content class="min-h-[400px]">
-  <form
-    [formGroup]="habitFormGroup"
-    class="grid grid-cols-2 max-sm:grid-cols-1 gap-4"
-  >
+<mat-dialog-content class="!pb-1">
+  <form [formGroup]="habitFormGroup" class="grid grid-cols-1 gap-4">
     <mat-form-field class="h-min">
       <mat-label>Habit Title</mat-label>
       <input matInput formControlName="title" />
@@ -12,40 +9,6 @@
     <mat-form-field>
       <mat-label>Short description</mat-label>
       <textarea matInput formControlName="shortDescription"></textarea>
-    </mat-form-field>
-
-    <mat-form-field class="h-min">
-      <mat-label>How Often</mat-label>
-      <mat-select>
-        <mat-option>-- None --</mat-option>
-        <mat-option value="daily">Daily</mat-option>
-        <mat-option value="weekly">Weekly</mat-option>
-        <mat-option value="monthly">Monthly</mat-option>
-        <mat-option value="custom">Custom</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="h-min">
-      <mat-label>Times / Period</mat-label>
-      <input
-        matInput
-        type="number"
-        min="1"
-        placeholder="1"
-        formControlName="howManyTimesPerPeriod"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="h-min">
-      <mat-label>Hour Of The Day</mat-label>
-      <input matInput formControlName="hourOfTheDay" [matTimepicker]="picker" />
-      <mat-timepicker-toggle matIconSuffix [for]="picker" />
-      <mat-timepicker #picker />
-    </mat-form-field>
-
-    <mat-form-field class="h-min">
-      <mat-label>Duration Time (min)</mat-label>
-      <input matInput type="number" min="1" formControlName="durationTime" />
     </mat-form-field>
 
     <div>
@@ -62,10 +25,6 @@
         <mat-radio-button value="orange">Orange</mat-radio-button>
       </mat-radio-group>
     </div>
-
-    <mat-slide-toggle formControlName="setReminder">
-      Set Reminder
-    </mat-slide-toggle>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

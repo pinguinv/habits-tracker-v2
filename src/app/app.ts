@@ -8,7 +8,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { AddHabitDialog } from './components/add-habit-dialog/add-habit-dialog';
+
+type RouteButton = {
+  name: string;
+  path: string;
+};
 
 @Component({
   imports: [
@@ -17,6 +24,7 @@ import { AddHabitDialog } from './components/add-habit-dialog/add-habit-dialog';
     MatButtonModule,
     MatIcon,
     MatDialogModule,
+    MatTooltipModule,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -25,6 +33,8 @@ import { AddHabitDialog } from './components/add-habit-dialog/add-habit-dialog';
 export class App implements OnInit {
   private router = inject(Router);
   private dialog = inject(MatDialog);
+
+  protected routeButtons: RouteButton[] = [{ name: 'Habits', path: '' }];
 
   // why: to show or hide 'add habit button'
   private routeSignal = toSignal(
@@ -44,7 +54,10 @@ export class App implements OnInit {
   }
 
   openAddHabitDialog() {
-    // const dialogRef = this.dialog.open(AddHabitDialog);
+    // Removing focus from button after click
+    // To prevent "Blocked aria-hidden ..." warning
+    (document.activeElement as HTMLElement).blur();
+
     this.dialog.open(AddHabitDialog, {
       maxWidth: '800px',
     });

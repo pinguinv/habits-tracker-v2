@@ -1,0 +1,7 @@
+import { FormControl } from '@angular/forms';
+
+export type HabitFormGroupType = {
+  title: FormControl<string>;
+  shortDescription: FormControl<string>;
+  color: FormControl<string>;
+};

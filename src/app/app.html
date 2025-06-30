@@ -3,19 +3,15 @@
 >
   <h1 class="w-full flex justify-center pb-2">Habits Tracker v2</h1>
   <div class="flex justify-center sm:gap-x-8">
-    <button matButton="text" routerLink="/" class="w-40 max-sm:w-full">
-      Habits
-    </button>
+    @for (routeButton of routeButtons; track $index) {
     <button
       matButton="text"
-      routerLink="/achievements"
+      [routerLink]="routeButton.path"
       class="w-40 max-sm:w-full"
     >
-      Achievements
+      {{ routeButton.name }}
     </button>
-    <button matButton="text" routerLink="/charts" class="w-40 max-sm:w-full">
-      Charts
-    </button>
+    }
   </div>
 </div>
 
@@ -26,7 +22,8 @@
     [disabled]="!showButton()"
     [class]="{'animate-slide-out': showButton(), 
     'animate-slide-under': !showButton()}"
-    title="Add New Habit"
+    matTooltip="Add New Habit"
+    matTooltipShowDelay="500"
     (click)="openAddHabitDialog()"
   >
     <mat-icon>add</mat-icon>
