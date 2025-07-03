@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +7,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -62,4 +64,77 @@ input[type='number']::-webkit-inner-spin-button {
 input[type='number'] {
   appearance: textfield;
   -moz-appearance: textfield;
+}
+
+// HABIT COLORS SECTION
+
+$cyan: #22d3ee;
+$violet: #a78bfa;
+$red: #f87171;
+$orange: #fb923c;
+
+mat-radio-button {
+  &[value='cyan'] {
+    @include mat.radio-overrides(
+      (
+        selected-focus-icon-color: $cyan,
+        selected-hover-icon-color: $cyan,
+        selected-icon-color: $cyan,
+        checked-ripple-color: $cyan,
+        selected-pressed-icon-color: $cyan,
+      )
+    );
+  }
+
+  &[value='violet'] {
+    @include mat.radio-overrides(
+      (
+        selected-focus-icon-color: $violet,
+        selected-hover-icon-color: $violet,
+        selected-icon-color: $violet,
+        checked-ripple-color: $violet,
+        selected-pressed-icon-color: $violet,
+      )
+    );
+  }
+
+  &[value='orange'] {
+    @include mat.radio-overrides(
+      (
+        selected-focus-icon-color: $orange,
+        selected-hover-icon-color: $orange,
+        selected-icon-color: $orange,
+        checked-ripple-color: $orange,
+        selected-pressed-icon-color: $orange,
+      )
+    );
+  }
+
+  &[value='red'] {
+    @include mat.radio-overrides(
+      (
+        selected-focus-icon-color: $red,
+        selected-hover-icon-color: $red,
+        selected-icon-color: $red,
+        checked-ripple-color: $red,
+        selected-pressed-icon-color: $red,
+      )
+    );
+  }
+}
+
+.cyan {
+  background-color: $cyan;
+}
+
+.violet {
+  background-color: $violet;
+}
+
+.red {
+  background-color: $red;
+}
+
+.orange {
+  background-color: $orange;
 }

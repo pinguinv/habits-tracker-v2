@@ -14,7 +14,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       id: 1,
       title: 'Read a Book',
       shortDescription: 'Read a chapter to expand knowledge or relax.',
-      color: 'magenta',
+      color: 'violet',
     },
     {
       id: 2,
@@ -38,7 +38,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       id: 5,
       title: 'Stretch Break',
       shortDescription: 'Do a quick stretching session to relieve tension.',
-      color: 'magenta',
+      color: 'violet',
     },
     {
       id: 6,
@@ -62,7 +62,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       id: 9,
       title: 'Learn Something New',
       shortDescription: 'Spend time learning a new skill or hobby.',
-      color: 'magenta',
+      color: 'violet',
     },
     {
       id: 10,
