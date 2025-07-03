@@ -8,6 +8,9 @@
     <mat-form-field hideRequiredMarker>
       <mat-label>Habit Title</mat-label>
       <input matInput formControlName="title" />
+      @if (habitForm.controls.title.invalid) {
+      <mat-error>This field is required</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
