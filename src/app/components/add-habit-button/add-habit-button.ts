@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltip } from '@angular/material/tooltip';
 
-import { AddHabitDialog } from '../add-habit-dialog/add-habit-dialog';
+import { HabitDialog, HabitDialogDataType } from '../habit-dialog/habit-dialog';
 
 @Component({
   selector: 'app-add-habit-button',
@@ -48,8 +48,14 @@ export class AddHabitButton {
     // To prevent "Blocked aria-hidden ..." warning
     (document.activeElement as HTMLElement).blur();
 
-    this.dialog.open(AddHabitDialog, {
+    const dialogData: HabitDialogDataType = {
+      type: 'add',
+      habitData: null,
+    };
+
+    this.dialog.open(HabitDialog, {
       maxWidth: '800px',
+      data: dialogData,
     });
   }
 }

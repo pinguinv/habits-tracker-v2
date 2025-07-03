@@ -20,10 +20,19 @@ export const HabitsStore = signalStore(
   withState(initialState),
   withMethods((store) => {
     return {
-      addHabit(habit: HabitType): void {
-        habit.id = store.habits().length;
-        patchState(store, { habits: [...store.habits(), habit] });
-        console.log(store.habits());
+      addHabit(newHabit: HabitType): void {
+        newHabit.id = store.habits().length;
+        patchState(store, { habits: [...store.habits(), newHabit] });
+      },
+      updateHabit(updatedHabit: HabitType): void {
+        patchState(store, {
+          habits: store.habits().map((habit) => {
+            if (habit.id === updatedHabit.id) {
+              return updatedHabit;
+            }
+            return habit;
+          }),
+        });
       },
       fetchData(): void {
         const sub = getMockDataWithSomeDelay()

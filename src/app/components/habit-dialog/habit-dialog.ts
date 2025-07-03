@@ -9,7 +9,11 @@ import {
 
 import { provideNativeDateAdapter } from '@angular/material/core';
 
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +25,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HabitFormGroupType } from '../../types/habit-form-group.type';
 import { HabitsStore } from '../../store/habits.store';
 import { HabitType } from '../../types/habit.type';
+
+export type HabitDialogDataType = {
+  type: 'add' | 'edit';
+  habitData?: HabitType;
+};
 
 @Component({
   selector: 'app-add-habit-dialog',
@@ -37,12 +46,16 @@ import { HabitType } from '../../types/habit.type';
     MatSlideToggleModule,
     MatRadioModule,
   ],
-  templateUrl: './add-habit-dialog.html',
-  styleUrl: './add-habit-dialog.scss',
+  templateUrl: './habit-dialog.html',
+  styleUrl: './habit-dialog.scss',
 })
-export class AddHabitDialog {
-  private dialogRef = inject(MatDialogRef<AddHabitDialog>);
+export class HabitDialog {
+  private dialogRef = inject(MatDialogRef<HabitDialog>);
   private store = inject(HabitsStore);
+  protected habitDialogData = inject<HabitDialogDataType | null>(
+    MAT_DIALOG_DATA
+  );
+
   protected habitForm: FormGroup<HabitFormGroupType>;
 
   constructor() {
@@ -51,19 +64,41 @@ export class AddHabitDialog {
       shortDescription: new FormControl(''),
       color: new FormControl('cyan'),
     });
+
+    if (this.habitDialogData.type === 'edit') {
+      this.habitForm.controls.title.setValue(
+        this.habitDialogData.habitData.title
+      );
+      this.habitForm.controls.shortDescription.setValue(
+        this.habitDialogData.habitData.shortDescription
+      );
+      this.habitForm.controls.color.setValue(
+        this.habitDialogData.habitData.color
+      );
+    }
   }
 
   saveAndCloseDialog() {
     if (this.habitForm.invalid) return;
 
-    const newHabit: HabitType = {
+    const habit: HabitType = {
       id: null,
       title: this.habitForm.controls.title.value,
       shortDescription: this.habitForm.controls.shortDescription.value,
       color: this.habitForm.controls.color.value,
     };
 
-    this.store.addHabit(newHabit);
+    switch (this.habitDialogData.type) {
+      case 'edit':
+        habit.id = this.habitDialogData.habitData.id;
+
+        this.store.updateHabit(habit);
+        break;
+      case 'add':
+      default:
+        this.store.addHabit(habit);
+        break;
+    }
 
     this.dialogRef.close();
   }

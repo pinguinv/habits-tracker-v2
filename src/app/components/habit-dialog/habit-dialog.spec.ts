@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddHabitDialog } from './add-habit-dialog';
+import { AddHabitDialog } from './habit-dialog';
 
 describe('AddHabitDialog', () => {
   let component: AddHabitDialog;
@@ -7,7 +7,7 @@ describe('AddHabitDialog', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddHabitDialog]
+      imports: [AddHabitDialog],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddHabitDialog);

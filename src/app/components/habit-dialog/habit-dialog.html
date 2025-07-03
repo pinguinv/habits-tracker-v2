@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Habit</h2>
+<h2 mat-dialog-title>{{ habitDialogData.type | titlecase }} Habit</h2>
 <mat-dialog-content class="!pb-1">
   <form
     [formGroup]="habitForm"
@@ -41,6 +41,7 @@
     [disabled]="habitForm.invalid"
     (click)="saveAndCloseDialog()"
   >
-    Add Habit
+    @switch (habitDialogData.type) { @case ('add') { Add } @case ('edit') { Save
+    } }
   </button>
 </mat-dialog-actions>
