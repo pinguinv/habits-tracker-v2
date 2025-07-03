@@ -7,15 +7,5 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  theme: {
-    extend: {
-      colors: {
-        background: '#101414',
-        'on-primary-fixed-variant': '#004f4f',
-        'on-surface': '#e0e3e2',
-        primary: '#00dddd',
-      },
-    },
-  },
   plugins: [],
 };

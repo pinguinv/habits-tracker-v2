@@ -1,0 +1,16 @@
+@if (renderButton()) {
+<div class="fixed end-0 max-md:bottom-0">
+  <button
+    matFab
+    class="absolute end-4 top-32 max-md:top-auto max-md:bottom-4 z-40"
+    [disabled]="!showButton()"
+    [class]="{'animate-slide-in': showButton(), 
+      'animate-slide-out': !showButton()}"
+    matTooltip="Add New Habit"
+    matTooltipShowDelay="500"
+    (click)="openAddHabitDialog()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+}

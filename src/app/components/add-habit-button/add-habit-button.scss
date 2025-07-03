@@ -1,0 +1,45 @@
+@keyframes slide-in {
+  0% {
+    @apply -end-16;
+  }
+  100% {
+    @apply end-4;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    // @apply top-4;
+    @apply end-4;
+  }
+  100% {
+    // @apply -top-40;
+    @apply -end-16;
+  }
+}
+
+.animate-slide-in {
+  animation-name: slide-in;
+  animation-duration: 500ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.animate-slide-out {
+  animation-name: slide-out;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  // @media (max-width: 768px) {
+  //   animation-name: slide-out-bottom;
+  // }
+}
+
+@keyframes slide-out-bottom {
+  0% {
+    @apply bottom-4;
+  }
+  100% {
+    @apply -bottom-16;
+  }
+}

@@ -1,16 +1,13 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
-import { RouterModule, Router, NavigationEnd } from '@angular/router';
-
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map } from 'rxjs';
+import { Component, OnInit, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
-import { AddHabitDialog } from './components/add-habit-dialog/add-habit-dialog';
+import { AddHabitButton } from './components/add-habit-button/add-habit-button';
 
 type RouteButton = {
   name: string;
@@ -22,44 +19,43 @@ type RouteButton = {
     RouterModule,
     MatTabsModule,
     MatButtonModule,
-    MatIcon,
     MatDialogModule,
     MatTooltipModule,
+    MatIconModule,
+    AddHabitButton,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
-  private router = inject(Router);
-  private dialog = inject(MatDialog);
+  protected routeButtons: RouteButton[] = [
+    { name: 'Habits', path: '' },
+    { name: 'Charts', path: '/charts' },
+  ];
 
-  protected routeButtons: RouteButton[] = [{ name: 'Habits', path: '' }];
-
-  // why: to show or hide 'add habit button'
-  private routeSignal = toSignal(
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e: NavigationEnd) => e.urlAfterRedirects)
-    )
-  );
-
-  protected showButton = computed(() => this.routeSignal() === '/');
+  protected isDarkTheme = signal(false);
 
   ngOnInit(): void {
     // remove preload class with plain JS
     setTimeout(() => {
       document.body.classList.remove('preload');
     }, 500);
+
+    if (localStorage.getItem('darkTheme')) {
+      this.isDarkTheme.set(true);
+      document.body.classList.add('dark');
+    }
   }
 
-  openAddHabitDialog() {
-    // Removing focus from button after click
-    // To prevent "Blocked aria-hidden ..." warning
-    (document.activeElement as HTMLElement).blur();
-
-    this.dialog.open(AddHabitDialog, {
-      maxWidth: '800px',
-    });
+  toggleDarkTheme() {
+    this.isDarkTheme.update((v) => !v);
+    if (this.isDarkTheme()) {
+      document.body.classList.add('dark');
+      localStorage.setItem('darkTheme', '1');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.removeItem('darkTheme');
+    }
   }
 }

@@ -36,14 +36,14 @@ mat-radio-button[value='orange'] {
   );
 }
 
-mat-radio-button[value='yellow'] {
+mat-radio-button[value='red'] {
   @include mat.radio-overrides(
     (
-      selected-focus-icon-color: yellow,
-      selected-hover-icon-color: yellow,
-      selected-icon-color: yellow,
-      checked-ripple-color: yellow,
-      selected-pressed-icon-color: yellow,
+      selected-focus-icon-color: red,
+      selected-hover-icon-color: red,
+      selected-icon-color: red,
+      checked-ripple-color: red,
+      selected-pressed-icon-color: red,
     )
   );
 }

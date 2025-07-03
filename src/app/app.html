@@ -1,33 +1,27 @@
-<div
-  class="w-full flex relative z-10 flex-col font-bold text-3xl pt-2 bg-on-primary-fixed-variant text-primary"
->
-  <h1 class="w-full flex justify-center pb-2">Habits Tracker</h1>
-  <div class="flex justify-center sm:gap-x-8">
+<div class="w-full flex fixed top-0 bg z-10 flex-col font-bold text-3xl pt-2">
+  <h1 class="w-full flex justify-center pb-2 max-sm:pb-6">Habits Tracker</h1>
+  <div class="flex justify-center gap-x-8 pb-1">
     @for (routeButton of routeButtons; track $index) {
-    <button
-      matButton="text"
-      [routerLink]="routeButton.path"
-      class="w-40 max-sm:w-full"
-    >
+    <button matButton="tonal" [routerLink]="routeButton.path" class="w-40">
       {{ routeButton.name }}
     </button>
     }
   </div>
 </div>
 
-<div class="fixed end-0 max-md:bottom-0">
+<div class="fixed top-0 end-0 z-10">
   <button
-    matFab
-    class="absolute end-4 -top-16 max-md:top-auto"
-    [disabled]="!showButton()"
-    [class]="{'animate-slide-out': showButton(), 
-    'animate-slide-under': !showButton()}"
+    matMiniFab
+    class="absolute top-4 end-4"
     matTooltip="Add New Habit"
     matTooltipShowDelay="500"
-    (click)="openAddHabitDialog()"
+    (click)="toggleDarkTheme()"
   >
-    <mat-icon>add</mat-icon>
+    <mat-icon>{{ isDarkTheme() ? 'wb_sunny' : 'nights_stay'}}</mat-icon>
   </button>
 </div>
+
+<app-add-habit-button></app-add-habit-button>
+<div class="pt-28"></div>
 
 <router-outlet></router-outlet>

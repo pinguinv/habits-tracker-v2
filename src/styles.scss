@@ -9,12 +9,16 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-
-  @apply text-on-surface bg-background;
+  background-color: var(--mat-sys-background);
+  color: var(--mat-sys-on-background);
 
   /* Scrollbar style for Firefox */
   scrollbar-color: #2d3131 #101414;
   scrollbar-width: thin;
+}
+
+.dark {
+  color-scheme: dark;
 }
 
 /* Code in App.ngOnInit() will remove this class from body 
