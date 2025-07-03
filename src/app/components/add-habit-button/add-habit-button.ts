@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -8,12 +8,13 @@ import { debounce, filter, map, of, timer } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltip } from '@angular/material/tooltip';
 
 import { AddHabitDialog } from '../add-habit-dialog/add-habit-dialog';
 
 @Component({
   selector: 'app-add-habit-button',
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltip],
   templateUrl: './add-habit-button.html',
   styleUrl: './add-habit-button.scss',
 })

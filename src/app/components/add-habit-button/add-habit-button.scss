@@ -30,16 +30,4 @@
   animation-duration: 500ms;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
-  // @media (max-width: 768px) {
-  //   animation-name: slide-out-bottom;
-  // }
-}
-
-@keyframes slide-out-bottom {
-  0% {
-    @apply bottom-4;
-  }
-  100% {
-    @apply -bottom-16;
-  }
 }

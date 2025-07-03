@@ -1,5 +1,7 @@
 <main class="flex justify-center">
-  <div class="w-full pt-3 px-2 sm:w-[600px] lg:w-[860px] flex flex-col gap-y-4">
+  <div
+    class="w-full pt-3 px-2 sm:w-[600px] lg:w-[860px] flex flex-col gap-y-4 pb-4"
+  >
     @for (habit of store.habits(); track $index) {
     <app-habit [habitData]="habit" />
     } @if (!store.isLoadedData()) {

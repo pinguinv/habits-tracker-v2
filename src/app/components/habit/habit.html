@@ -1,8 +1,12 @@
-<mat-card appearance="outlined" class="overflow-hidden -z-10">
+<mat-card
+  matRipple
+  appearance="outlined"
+  class="overflow-hidden cursor-pointer"
+>
   <mat-card-header>
-    <mat-card-title class="z-10"> {{habitData().title}} </mat-card-title>
+    <mat-card-title> {{habitData().title}} </mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="!pb-4">
     <p>{{habitData().shortDescription}}</p>
   </mat-card-content>
 </mat-card>
