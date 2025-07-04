@@ -44,17 +44,17 @@ export class App implements OnInit {
 
     if (localStorage.getItem('darkTheme')) {
       this.isDarkTheme.set(true);
-      document.body.classList.add('dark');
+      document.documentElement.classList.add('dark');
     }
   }
 
   toggleDarkTheme() {
     this.isDarkTheme.update((v) => !v);
     if (this.isDarkTheme()) {
-      document.body.classList.add('dark');
+      document.documentElement.classList.add('dark');
       localStorage.setItem('darkTheme', '1');
     } else {
-      document.body.classList.remove('dark');
+      document.documentElement.classList.remove('dark');
       localStorage.removeItem('darkTheme');
     }
   }

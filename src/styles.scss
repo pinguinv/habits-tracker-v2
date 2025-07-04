@@ -3,6 +3,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@mixin scrollbars($scrollbar-thumb-color, $scrollbar-bg-color) {
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-bg-color;
+    width: 8px;
+  }
+
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-bg-color;
+
+  scrollbar-width: thin;
+}
+
+html {
+  //  --mat-sys-outline --mat-sys-surface
+  @include scrollbars(#75796b, #fafaee);
+}
+
+html.dark {
+  //  --mat-sys-outline-variant --mat-sys-surface
+  @include scrollbars(#45483d, #12140e);
+}
+
 html,
 body {
   height: 100%;
@@ -13,10 +38,6 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background-color: var(--mat-sys-background);
   color: var(--mat-sys-on-background);
-
-  /* Scrollbar style for Firefox */
-  scrollbar-color: #2d3131 #101414;
-  scrollbar-width: thin;
 }
 
 .dark {
@@ -32,17 +53,6 @@ body {
   looks terrible */
 body.preload * {
   animation-duration: 0s !important;
-}
-
-/* Scrollbar style for older browsers */
-::-webkit-scrollbar {
-  width: 8px;
-  background: #101414;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #2d3131;
-  border-radius: 20px;
 }
 
 /* Hide scrollbar in textareas */
