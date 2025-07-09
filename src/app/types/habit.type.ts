@@ -12,7 +12,7 @@ export type HabitType = {
 //    'W{dayOfTheWeek},{dayOfTheWeek}...'
 //    dayOfTheWeek: 1-7
 // repeat, = 'RR2' || 'RA2,1'
-//  'RR{daysInterval}' || 'RA{daysDoTheHabit}{daysRest}'
+//  'RR{daysInterval}' || 'RA{daysDoTheHabit},{daysRest}'
 //  daysInterval: > 1
 //  daysDoTheHabit: > 0
 //  daysRest: > 0

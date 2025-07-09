@@ -1,13 +1,21 @@
 import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { MatError } from '@angular/material/form-field';
+import { greaterThan } from '../../../shared/greater-than.directive';
+import { integerOnly } from '../../../shared/integer-only.directive';
 
 type WeekDayType = {
   day: string;
@@ -23,9 +31,10 @@ type WeekDayType = {
     MatStepperModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatError,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatSlideToggleModule,
   ],
   templateUrl: './frequency-picker.html',
   styleUrl: './frequency-picker.scss',
@@ -46,16 +55,32 @@ export class FrequencyPicker {
   protected frequencyRadioSelect = 'D';
   protected encodedFrequency = '';
   protected showWeekError = false;
+  protected alternateDays = false;
+
+  protected repeatDays = new FormControl(2, [
+    Validators.required,
+    greaterThan(1),
+    integerOnly(),
+  ]);
+  protected activeDays = new FormControl<number>(null, [
+    Validators.required,
+    greaterThan(0),
+    integerOnly(),
+  ]);
+  protected restDays = new FormControl<number>(null, [
+    Validators.required,
+    greaterThan(0),
+    integerOnly(),
+  ]);
 
   emitEncodedFrequency() {
-    // '' if not valid
-    // anything if valid.
     this.encodedFrequency = this.determineEncodedFrequency();
     this.frequencyOutput.emit(this.encodedFrequency);
   }
 
   determineEncodedFrequency(): string {
     let encodedStr = 'D';
+    let isValid = false;
 
     switch (this.frequencyRadioSelect) {
       case 'W':
@@ -68,18 +93,41 @@ export class FrequencyPicker {
         if (encodedStr.length > 1)
           encodedStr = encodedStr.substring(0, encodedStr.length - 1);
 
+        isValid = encodedStr.length > 1;
+
         break;
 
       case 'R':
         encodedStr = 'R';
+        isValid = false;
+
+        if (this.alternateDays) {
+          encodedStr += `A${this.activeDays.value},${this.restDays.value}`;
+          isValid =
+            this.activeDays.value > 0 &&
+            this.restDays.value > 0 &&
+            this.activeDays.valid &&
+            this.restDays.valid;
+
+          break;
+        }
+
+        encodedStr += `R${this.repeatDays.value}`;
+        isValid = this.repeatDays.value > 1 && this.repeatDays.valid;
+
         break;
 
       case 'D':
-      default:
+        isValid = true;
         break;
+
+      default:
+        isValid = false;
     }
 
-    return encodedStr === 'D' || encodedStr.length > 1 ? encodedStr : '';
+    // '' if not valid
+    // anything if valid.
+    return isValid ? encodedStr : '';
   }
 
   setFrequencyRadioSelect(selected: string) {

@@ -32,7 +32,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <div class="flex flex-wrap gap-x-3">
+      <div class="flex flex-wrap gap-x-3 justify-center">
         @for (weekDay of weekDays; track $index) {
         <mat-checkbox
           [checked]="weekDay.checked"
@@ -50,7 +50,6 @@
       [expanded]="frequencyRadioSelect === 'R'"
       (opened)="setFrequencyRadioSelect('R')"
       hideToggle
-      class="h-12"
     >
       <mat-expansion-panel-header class="max-h-12">
         <mat-panel-title>
@@ -58,6 +57,87 @@
           Repeat
         </mat-panel-title>
       </mat-expansion-panel-header>
+
+      <div class="flex flex-col items-center pt-2">
+        @if (!alternateDays) {
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="max-w-full"
+        >
+          <input
+            matInput
+            [formControl]="repeatDays"
+            (keyup)="emitEncodedFrequency()"
+            (keydown.dot)="$event.preventDefault()"
+            type="number"
+            class="text-center"
+            [required]="!alternateDays"
+            title=""
+          />
+          <span matTextPrefix>Every&nbsp;</span>
+          <span matTextSuffix>&nbsp;days</span>
+        </mat-form-field>
+        @if (repeatDays.invalid) {
+        <mat-error class="text-center pb-4">
+          Enter an integer greater than one
+        </mat-error>
+        } } @else {
+
+        <div class="grid grid-cols-7 grid-rows-1">
+          <mat-form-field
+            class="col-span-3 col-start-1 h-fit"
+            appearance="outline"
+            hideRequiredMarker
+          >
+            <mat-label class="self-center">Active</mat-label>
+            <input
+              matInput
+              [formControl]="activeDays"
+              (keyup)="emitEncodedFrequency()"
+              (keydown.dot)="$event.preventDefault()"
+              type="number"
+              class="text-center"
+              [required]="alternateDays"
+              title=""
+            />
+          </mat-form-field>
+          <span class="col-span-1 flex justify-center max-h-14 items-center"
+            >x</span
+          >
+          <mat-form-field
+            class="col-span-3 col-start-5 h-fit"
+            appearance="outline"
+            hideRequiredMarker
+          >
+            <mat-label>Rest</mat-label>
+            <input
+              matInput
+              [formControl]="restDays"
+              (keyup)="emitEncodedFrequency()"
+              (keydown.dot)="$event.preventDefault()"
+              type="number"
+              class="text-center"
+              [required]="alternateDays"
+              title=""
+            />
+          </mat-form-field>
+          @if (activeDays.touched && activeDays.invalid || restDays.touched &&
+          restDays.invalid) {
+          <mat-error class="col-span-7 text-center pb-4">
+            Enter an integers greater than zero
+          </mat-error>
+          }
+        </div>
+        }
+
+        <mat-slide-toggle
+          [(ngModel)]="alternateDays"
+          (click)="emitEncodedFrequency()"
+        >
+          Alternate days
+        </mat-slide-toggle>
+      </div>
     </mat-expansion-panel>
   </mat-radio-group>
 </div>
