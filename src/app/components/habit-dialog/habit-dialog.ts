@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import {
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
-import { provideNativeDateAdapter } from '@angular/material/core';
 
 import {
   MAT_DIALOG_DATA,
@@ -21,6 +20,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HabitFormGroupType } from '../../types/habit-form-group.type';
 import { HabitsStore } from '../../store/habits.store';
@@ -31,11 +34,17 @@ export type HabitDialogDataType = {
   habitData?: HabitType;
 };
 
+type WeekDayType = {
+  day: string;
+  weekDayNumber: number;
+  checked: boolean;
+};
+
 @Component({
   selector: 'app-add-habit-dialog',
-  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -45,6 +54,10 @@ export type HabitDialogDataType = {
     MatButtonModule,
     MatSlideToggleModule,
     MatRadioModule,
+    MatStepperModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatCheckboxModule,
   ],
   templateUrl: './habit-dialog.html',
   styleUrl: './habit-dialog.scss',
@@ -57,6 +70,18 @@ export class HabitDialog {
   );
 
   protected habitForm: FormGroup<HabitFormGroupType>;
+
+  protected frequencyRadioSelect = 'D';
+
+  protected weekDays: WeekDayType[] = [
+    { day: 'Monday', weekDayNumber: 1, checked: false },
+    { day: 'Tuesday', weekDayNumber: 2, checked: false },
+    { day: 'Wednesday', weekDayNumber: 3, checked: false },
+    { day: 'Thursday', weekDayNumber: 4, checked: false },
+    { day: 'Friday', weekDayNumber: 5, checked: false },
+    { day: 'Saturday', weekDayNumber: 6, checked: false },
+    { day: 'Sunday', weekDayNumber: 7, checked: false },
+  ];
 
   constructor() {
     this.habitForm = new FormGroup({
@@ -79,6 +104,10 @@ export class HabitDialog {
   }
 
   saveAndCloseDialog() {
+    const encodedFrequency = this.determineEncodedFrequency();
+
+    if (encodedFrequency.length <= 1 && encodedFrequency !== 'D') return;
+
     if (this.habitForm.invalid) return;
 
     const habit: HabitType = {
@@ -86,7 +115,12 @@ export class HabitDialog {
       title: this.habitForm.controls.title.value,
       shortDescription: this.habitForm.controls.shortDescription.value,
       color: this.habitForm.controls.color.value,
+      frequency: encodedFrequency,
     };
+
+    console.log(habit);
+    console.log(this.weekDays);
+    console.log(encodedFrequency);
 
     switch (this.habitDialogData.type) {
       case 'edit':
@@ -101,5 +135,39 @@ export class HabitDialog {
     }
 
     this.dialogRef.close();
+  }
+
+  determineEncodedFrequency(): string {
+    let encodedStr = 'D';
+
+    console.log('determineEncodedFrequency fired');
+
+    switch (this.frequencyRadioSelect) {
+      case 'W':
+        encodedStr = 'W';
+
+        for (const day of this.weekDays) {
+          if (day.checked) encodedStr += `${day.weekDayNumber},`;
+        }
+
+        if (encodedStr.length > 1)
+          encodedStr = encodedStr.substring(0, encodedStr.length - 1);
+
+        break;
+
+      case 'R':
+        encodedStr = 'R';
+        break;
+
+      case 'D':
+      default:
+        break;
+    }
+
+    return encodedStr;
+  }
+
+  updateWeekDayChecked(newCheckedState: boolean, index: number) {
+    this.weekDays[index].checked = newCheckedState;
   }
 }

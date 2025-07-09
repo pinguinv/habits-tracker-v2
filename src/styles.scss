@@ -44,6 +44,15 @@ body {
   color-scheme: dark;
 }
 
+/* To prevent appearance bug in outlined form fields.
+  Without this correction a line appears 
+  in the middle of outlined form field.
+  This is due to a conflict with the style in 
+  TailwindCSS and the Angular Material. */
+.mdc-notched-outline__notch {
+  border-right: none;
+}
+
 /* Code in App.ngOnInit() will remove this class from body 
   after some delay so animations can happen in normal time.
   

@@ -25,7 +25,6 @@ export class Habit {
     };
 
     this.dialog.open(HabitDialog, {
-      maxWidth: '800px',
       data: dialogData,
     });
   }

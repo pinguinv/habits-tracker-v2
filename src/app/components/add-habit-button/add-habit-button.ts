@@ -54,7 +54,6 @@ export class AddHabitButton {
     };
 
     this.dialog.open(HabitDialog, {
-      maxWidth: '800px',
       data: dialogData,
     });
   }

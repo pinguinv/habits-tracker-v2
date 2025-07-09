@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-charts',
   imports: [CommonModule],
   templateUrl: './charts.html',
-  styleUrl: './charts.scss'
+  styleUrl: './charts.scss',
 })
 export class Charts {}

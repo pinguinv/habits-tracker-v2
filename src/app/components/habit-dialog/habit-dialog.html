@@ -1,51 +1,137 @@
-<h2 mat-dialog-title>{{ habitDialogData.type | titlecase }} Habit</h2>
+<h2 mat-dialog-title class="text-center">
+  {{ habitDialogData.type | titlecase }} Habit
+</h2>
 <mat-dialog-content class="!pb-1">
-  <form
-    [formGroup]="habitForm"
-    (submit)="saveAndCloseDialog()"
-    class="grid grid-cols-1 gap-4"
-  >
-    <mat-form-field hideRequiredMarker>
-      <mat-label>Habit Title</mat-label>
-      <input matInput formControlName="title" />
-      @if (habitForm.controls.title.invalid) {
-      <mat-error>This field is required</mat-error>
-      }
-    </mat-form-field>
+  <mat-stepper linear [formGroup]="habitForm" labelPosition="bottom" #stepper>
+    <mat-step [stepControl]="habitForm.controls.color" label="Color">
+      <h2 class="text-xl pt-4 text-center">Pick a color</h2>
+      <div class="pt-4">
+        <mat-radio-group
+          aria-label="Color"
+          class="flex flex-wrap justify-center gap-x-3"
+          formControlName="color"
+        >
+          <mat-radio-button value="cyan">Cyan</mat-radio-button>
+          <mat-radio-button value="violet">Violet</mat-radio-button>
+          <mat-radio-button value="red">Red</mat-radio-button>
+          <mat-radio-button value="orange">Orange</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="w-full flex justify-end pt-4">
+        <button matButton matDialogClose>Cancel</button>
+        <button matButton matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step
+      [stepControl]="habitForm.controls.title"
+      label="Title & Description"
+    >
+      <h2 class="text-xl pt-4 text-center">Define your habit</h2>
+      <div class="grid grid-cols-1 gap-4 pt-4">
+        <mat-form-field
+          hideRequiredMarker
+          floatLabel="always"
+          appearance="outline"
+        >
+          <mat-label>Habit Title</mat-label>
+          <input matInput formControlName="title" />
+          @if (habitForm.controls.title.invalid) {
+          <mat-error>Enter a name</mat-error>
+          }
+        </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Short description</mat-label>
-      <textarea
-        matInput
-        formControlName="shortDescription"
-        class="min-h-6"
-      ></textarea>
-    </mat-form-field>
+        <mat-form-field floatLabel="always" appearance="outline">
+          <mat-label>Short description</mat-label>
+          <textarea
+            matInput
+            formControlName="shortDescription"
+            class="min-h-6"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="w-full flex justify-end pt-4">
+        <button matButton matStepperPrevious>Back</button>
+        <button
+          matButton
+          matStepperNext
+          [disabled]="habitForm.controls.title.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="habitForm.controls.frequency" label="Frequency">
+      <h2 class="text-xl pt-4 text-center">How often do you want to do it?</h2>
+      <div class="grid grid-cols-1 gap-4 pt-4">
+        <mat-radio-group
+          [(ngModel)]="frequencyRadioSelect"
+          [ngModelOptions]="{standalone: true}"
+          required
+          aria-label="Frequency"
+        >
+          <mat-expansion-panel
+            [expanded]="frequencyRadioSelect === 'D'"
+            (opened)="frequencyRadioSelect = 'D'"
+            hideToggle
+            class="h-12"
+          >
+            <mat-expansion-panel-header class="max-h-12">
+              <mat-panel-title>
+                <mat-radio-button value="D"> </mat-radio-button>
+                Every day
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
 
-    <div>
-      <!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
-      <label id="color-radio-group">Color</label>
-      <mat-radio-group
-        aria-labelledby="color-radio-group"
-        class="flex flex-wrap gap-x-3"
-        formControlName="color"
-      >
-        <mat-radio-button value="cyan">Cyan</mat-radio-button>
-        <mat-radio-button value="violet">Violet</mat-radio-button>
-        <mat-radio-button value="red">Red</mat-radio-button>
-        <mat-radio-button value="orange">Orange</mat-radio-button>
-      </mat-radio-group>
-    </div>
-  </form>
+          <mat-expansion-panel
+            [expanded]="frequencyRadioSelect === 'W'"
+            (opened)="frequencyRadioSelect = 'W'"
+            hideToggle
+          >
+            <mat-expansion-panel-header class="max-h-12">
+              <mat-panel-title>
+                <mat-radio-button value="W"> </mat-radio-button>
+                Specific days of the week
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="flex flex-wrap gap-x-3">
+              @for (weekDay of weekDays; track $index) {
+              <mat-checkbox
+                [checked]="weekDay.checked"
+                (change)="updateWeekDayChecked($event.checked, $index)"
+              >
+                {{weekDay.day}}
+              </mat-checkbox>
+              }
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel
+            [expanded]="frequencyRadioSelect === 'R'"
+            (opened)="frequencyRadioSelect = 'R'"
+            hideToggle
+            class="h-12"
+          >
+            <mat-expansion-panel-header class="max-h-12">
+              <mat-panel-title>
+                <mat-radio-button value="R"> </mat-radio-button>
+                Repeat
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        </mat-radio-group>
+      </div>
+      <div class="w-full flex justify-end pt-4">
+        <button matButton matStepperPrevious>Back</button>
+        <button
+          matButton
+          [disabled]="habitForm.invalid"
+          (click)="saveAndCloseDialog()"
+        >
+          Save
+        </button>
+      </div>
+    </mat-step>
+  </mat-stepper>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button matButton mat-dialog-close>Cancel</button>
-  <button
-    matButton
-    [disabled]="habitForm.invalid"
-    (click)="saveAndCloseDialog()"
-  >
-    @switch (habitDialogData.type) { @case ('add') { Add } @case ('edit') { Save
-    } }
-  </button>
-</mat-dialog-actions>

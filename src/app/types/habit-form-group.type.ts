@@ -4,4 +4,5 @@ export type HabitFormGroupType = {
   title: FormControl<string>;
   shortDescription: FormControl<string>;
   color: FormControl<string>;
+  frequency?: FormControl<string>;
 };
