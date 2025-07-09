@@ -20,12 +20,12 @@
 
 html {
   //  --mat-sys-outline --mat-sys-surface
-  @include scrollbars(#75796b, #fafaee);
+  @include scrollbars(#7a757f, #fef7ff);
 }
 
 html.dark {
   //  --mat-sys-outline-variant --mat-sys-surface
-  @include scrollbars(#45483d, #12140e);
+  @include scrollbars(#49454e, #151218);
 }
 
 html,
