@@ -1,0 +1,63 @@
+<h2 class="text-xl pt-4 text-center">How often do you want to do it?</h2>
+<div class="grid grid-cols-1 gap-4 pt-4">
+  <mat-radio-group
+    [(ngModel)]="frequencyRadioSelect"
+    [ngModelOptions]="{standalone: true}"
+    required
+    aria-label="Frequency"
+  >
+    <mat-expansion-panel
+      [expanded]="frequencyRadioSelect === 'D'"
+      (opened)="setFrequencyRadioSelect('D')"
+      hideToggle
+      class="h-12"
+    >
+      <mat-expansion-panel-header class="max-h-12">
+        <mat-panel-title>
+          <mat-radio-button value="D"> </mat-radio-button>
+          Every day
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="frequencyRadioSelect === 'W'"
+      (opened)="setFrequencyRadioSelect('W')"
+      hideToggle
+    >
+      <mat-expansion-panel-header class="max-h-12">
+        <mat-panel-title>
+          <mat-radio-button value="W"> </mat-radio-button>
+          Specific days of the week
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="flex flex-wrap gap-x-3">
+        @for (weekDay of weekDays; track $index) {
+        <mat-checkbox
+          [checked]="weekDay.checked"
+          (change)="updateWeekDayChecked($event.checked, $index)"
+        >
+          {{weekDay.day}}
+        </mat-checkbox>
+        } @if (showWeekError && encodedFrequency === '') {
+        <mat-error>Select at least one day</mat-error>
+        }
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="frequencyRadioSelect === 'R'"
+      (opened)="setFrequencyRadioSelect('R')"
+      hideToggle
+      class="h-12"
+    >
+      <mat-expansion-panel-header class="max-h-12">
+        <mat-panel-title>
+          <mat-radio-button value="R"> </mat-radio-button>
+          Repeat
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-radio-group>
+</div>
