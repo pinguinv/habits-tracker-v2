@@ -162,20 +162,32 @@ $fd-bg-opacity: 0.35;
 
 .fd-cyan {
   background-color: rgba($cyan, $fd-bg-opacity);
-  color: light-dark(mix($cyan, #000000), mix($cyan, #ffffff));
+  color: light-dark(
+    color-mix(in srgb, $cyan 100%, #000000 50%),
+    color-mix(in srgb, $cyan 100%, #ffffff 50%)
+  );
 }
 
 .fd-violet {
   background-color: rgba($violet, $fd-bg-opacity);
-  color: light-dark(mix($violet, #000000), mix($violet, #ffffff));
+  color: light-dark(
+    color-mix(in srgb, $violet 100%, #000000 50%),
+    color-mix(in srgb, $violet 100%, #ffffff 50%)
+  );
 }
 
 .fd-red {
   background-color: rgba($red, $fd-bg-opacity);
-  color: light-dark(mix($red, #000000), mix($red, #ffffff));
+  color: light-dark(
+    color-mix(in srgb, $red 100%, #000000 50%),
+    color-mix(in srgb, $red 100%, #ffffff 50%)
+  );
 }
 
 .fd-orange {
   background-color: rgba($orange, $fd-bg-opacity);
-  color: light-dark(mix($orange, #000000), mix($orange, #ffffff));
+  color: light-dark(
+    color-mix(in srgb, $orange 100%, #000000 50%),
+    color-mix(in srgb, $orange 100%, #ffffff 50%)
+  );
 }
