@@ -110,7 +110,7 @@ export class HabitDialog {
     this.dialogRef.close();
   }
 
-  onFrequencyOutput(encodedFrequency: string) {
+  setEncodedFrequency(encodedFrequency: string) {
     this.encodedFrequency.set(encodedFrequency);
   }
 }

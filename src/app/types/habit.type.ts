@@ -3,7 +3,7 @@ export type HabitType = {
   title: string;
   shortDescription: string;
   color: string;
-  frequency?: string; // optional for development time
+  frequency: string;
 };
 
 // frequency encoding:

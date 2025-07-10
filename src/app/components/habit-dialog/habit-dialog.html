@@ -67,7 +67,8 @@
       <ng-template matStepLabel>Frequency</ng-template>
       <ng-template matStepContent>
         <app-frequency-picker
-          (frequencyOutput)="onFrequencyOutput($event)"
+          [frequencyInput]="habitDialogData.type === 'edit' ? habitDialogData.habitData.frequency : ''"
+          (frequencyOutput)="setEncodedFrequency($event)"
         ></app-frequency-picker>
         <div class="w-full flex justify-end pt-4">
           <button matButton matStepperPrevious>Back</button>

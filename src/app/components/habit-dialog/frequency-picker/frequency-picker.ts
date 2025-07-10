@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -39,9 +39,14 @@ type WeekDayType = {
   templateUrl: './frequency-picker.html',
   styleUrl: './frequency-picker.scss',
 })
-export class FrequencyPicker {
+export class FrequencyPicker implements OnInit {
+  public frequencyInput = input<string>('');
   protected frequencyOutput = output<string>();
 
+  protected frequencyRadioSelect = 'D';
+  protected encodedFrequency = '';
+
+  // specific days of the week option
   protected weekDays: WeekDayType[] = [
     { day: 'Monday', weekDayNumber: 1, checked: false },
     { day: 'Tuesday', weekDayNumber: 2, checked: false },
@@ -51,12 +56,10 @@ export class FrequencyPicker {
     { day: 'Saturday', weekDayNumber: 6, checked: false },
     { day: 'Sunday', weekDayNumber: 7, checked: false },
   ];
-
-  protected frequencyRadioSelect = 'D';
-  protected encodedFrequency = '';
   protected showWeekError = false;
-  protected alternateDays = false;
 
+  // repeat option
+  protected alternateDays = false;
   protected repeatDays = new FormControl(2, [
     Validators.required,
     greaterThan(1),
@@ -72,6 +75,53 @@ export class FrequencyPicker {
     greaterThan(0),
     integerOnly(),
   ]);
+
+  ngOnInit() {
+    // decode and set initial state
+    const encodedFrequencyIn = this.frequencyInput();
+
+    this.frequencyRadioSelect = encodedFrequencyIn[0];
+
+    switch (this.frequencyRadioSelect) {
+      case 'D':
+        break;
+      case 'W':
+        this.decodeStateWeekDays(encodedFrequencyIn);
+        break;
+      case 'R':
+        this.decodeStateRepeat(encodedFrequencyIn);
+        break;
+      default:
+        this.frequencyRadioSelect = 'D';
+    }
+  }
+
+  decodeStateWeekDays(encodedFrequency: string): void {
+    const weekDays: string[] = encodedFrequency.substring(1).split(',');
+
+    for (const weekDayNumStr of weekDays) {
+      const weekDayIndex = parseInt(weekDayNumStr) - 1;
+
+      this.weekDays[weekDayIndex].checked = true;
+    }
+  }
+
+  decodeStateRepeat(encodedFrequency: string): void {
+    this.alternateDays = encodedFrequency[1] === 'A';
+
+    if (this.alternateDays) {
+      const alternatingDays: string[] = encodedFrequency
+        .substring(2)
+        .split(',');
+
+      this.activeDays.setValue(parseInt(alternatingDays[0]));
+      this.restDays.setValue(parseInt(alternatingDays[1]));
+    } else {
+      // encodedOptions === 'R'
+      const repeatDays = encodedFrequency.substring(2);
+      this.repeatDays.setValue(parseInt(repeatDays));
+    }
+  }
 
   emitEncodedFrequency() {
     this.encodedFrequency = this.determineEncodedFrequency();
