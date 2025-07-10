@@ -157,3 +157,25 @@ mat-radio-button {
 .orange {
   background-color: $orange;
 }
+
+$fd-bg-opacity: 0.35;
+
+.fd-cyan {
+  background-color: rgba($cyan, $fd-bg-opacity);
+  color: light-dark(mix($cyan, #000000), mix($cyan, #ffffff));
+}
+
+.fd-violet {
+  background-color: rgba($violet, $fd-bg-opacity);
+  color: light-dark(mix($violet, #000000), mix($violet, #ffffff));
+}
+
+.fd-red {
+  background-color: rgba($red, $fd-bg-opacity);
+  color: light-dark(mix($red, #000000), mix($red, #ffffff));
+}
+
+.fd-orange {
+  background-color: rgba($orange, $fd-bg-opacity);
+  color: light-dark(mix($orange, #000000), mix($orange, #ffffff));
+}

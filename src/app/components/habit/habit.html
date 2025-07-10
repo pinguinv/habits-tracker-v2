@@ -4,14 +4,18 @@
   class="overflow-hidden cursor-pointer"
   (click)="openEditHabitDialog()"
 >
-  <mat-card-header>
+  <mat-card-header class="flex justify-between">
     <mat-card-title>
-      <span
-        class="h-4 w-4 rounded inline-block"
-        [class]="habitData().color"
-      ></span>
       {{habitData().title}}
+      <app-small-frequency-display
+        [displayColor]="habitData().color"
+        [encodedFrequency]="habitData().frequency"
+      ></app-small-frequency-display>
     </mat-card-title>
+    <span
+      class="h-8 w-8 mt-1 rounded-lg inline-block"
+      [class]="habitData().color"
+    ></span>
   </mat-card-header>
   <mat-card-content class="!pb-4">
     <p>{{habitData().shortDescription}}</p>

@@ -7,10 +7,16 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { HabitType } from '../../types/habit.type';
 import { HabitDialog, HabitDialogDataType } from '../habit-dialog/habit-dialog';
+import { SmallFrequencyDisplay } from './small-frequency-display/small-frequency-display';
 
 @Component({
   selector: 'app-habit',
-  imports: [CommonModule, MatCardModule, MatRippleModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatRippleModule,
+    SmallFrequencyDisplay,
+  ],
   templateUrl: './habit.html',
   styleUrl: './habit.scss',
 })
