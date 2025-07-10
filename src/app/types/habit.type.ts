@@ -8,9 +8,9 @@ export type HabitType = {
 
 // frequency encoding:
 //  every day = 'D'
-//  specific days of the week = 'W1,2,3,4,5,6,7'
+//  specific days of the week = 'W0,1,2,3,4,5,6'
 //    'W{dayOfTheWeek},{dayOfTheWeek}...'
-//    dayOfTheWeek: 1-7
+//    dayOfTheWeek: 0-6
 // repeat, = 'RR2' || 'RA2,1'
 //  'RR{daysInterval}' || 'RA{daysDoTheHabit},{daysRest}'
 //  daysInterval: > 1

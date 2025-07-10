@@ -23,7 +23,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       title: 'Evening Walk',
       shortDescription: 'Take a brisk walk to unwind and stay active.',
       color: 'orange',
-      frequency: 'W1,3,5,7',
+      frequency: 'W0,2,4,6',
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       title: 'Journal Reflection',
       shortDescription: 'Write down thoughts to reflect and gain clarity.',
       color: 'cyan',
-      frequency: 'W1,4,7',
+      frequency: 'W0,3,6',
     },
     {
       id: 5,
@@ -72,7 +72,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       title: 'Learn Something New',
       shortDescription: 'Spend time learning a new skill or hobby.',
       color: 'violet',
-      frequency: 'W2,4,6',
+      frequency: 'W1,3,5',
     },
     {
       id: 10,

@@ -16,12 +16,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { greaterThan } from '../../../shared/greater-than.directive';
 import { integerOnly } from '../../../shared/integer-only.directive';
-
-type WeekDayType = {
-  day: string;
-  weekDayNumber: number;
-  checked: boolean;
-};
+import { getWeekDays } from '../../../shared/week-days';
+import { WeekDayType } from '../../../types/week-day.type';
 
 @Component({
   selector: 'app-frequency-picker',
@@ -47,16 +43,8 @@ export class FrequencyPicker implements OnInit {
   protected encodedFrequency = '';
 
   // specific days of the week option
-  protected weekDays: WeekDayType[] = [
-    { day: 'Monday', weekDayNumber: 1, checked: false },
-    { day: 'Tuesday', weekDayNumber: 2, checked: false },
-    { day: 'Wednesday', weekDayNumber: 3, checked: false },
-    { day: 'Thursday', weekDayNumber: 4, checked: false },
-    { day: 'Friday', weekDayNumber: 5, checked: false },
-    { day: 'Saturday', weekDayNumber: 6, checked: false },
-    { day: 'Sunday', weekDayNumber: 7, checked: false },
-  ];
   protected showWeekError = false;
+  protected weekDays: WeekDayType[] = getWeekDays();
 
   // repeat option
   protected alternateDays = false;
@@ -97,10 +85,10 @@ export class FrequencyPicker implements OnInit {
   }
 
   decodeStateWeekDays(encodedFrequency: string): void {
-    const weekDays: string[] = encodedFrequency.substring(1).split(',');
+    const weekDaysNums: string[] = encodedFrequency.substring(1).split(',');
 
-    for (const weekDayNumStr of weekDays) {
-      const weekDayIndex = parseInt(weekDayNumStr) - 1;
+    for (const weekDayNumStr of weekDaysNums) {
+      const weekDayIndex = parseInt(weekDayNumStr);
 
       this.weekDays[weekDayIndex].checked = true;
     }
@@ -136,8 +124,9 @@ export class FrequencyPicker implements OnInit {
       case 'W':
         encodedStr = 'W';
 
-        for (const day of this.weekDays) {
-          if (day.checked) encodedStr += `${day.weekDayNumber},`;
+        for (let i = 0; i < this.weekDays.length; i++) {
+          const day = this.weekDays[i];
+          if (day.checked) encodedStr += `${i},`;
         }
 
         if (encodedStr.length > 1)

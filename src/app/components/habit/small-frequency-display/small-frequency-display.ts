@@ -1,6 +1,9 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { getWeekDays } from '../../../shared/week-days';
+import { WeekDayType } from '../../../types/week-day.type';
+
 @Component({
   selector: 'app-small-frequency-display',
   imports: [CommonModule],
@@ -11,15 +14,7 @@ export class SmallFrequencyDisplay {
   public displayColor = input.required<string>();
   public encodedFrequency = input.required<string>();
 
-  private weekDays: string[] = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
+  private weekDays: WeekDayType[] = getWeekDays();
 
   protected displayedMessage = computed<string>(() => {
     const frequency = this.encodedFrequency();
@@ -34,7 +29,8 @@ export class SmallFrequencyDisplay {
           .substring(1)
           .split(',')
           .forEach((weekDayNumStr) => {
-            message += this.weekDays[parseInt(weekDayNumStr) - 1] + ' - ';
+            message +=
+              this.weekDays[parseInt(weekDayNumStr)].abbreviation + ' - ';
           });
 
         message = message.substring(0, message.length - 3);
