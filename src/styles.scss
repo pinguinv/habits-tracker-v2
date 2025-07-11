@@ -85,6 +85,11 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+// Globally turning off box shadow for expansion panels
+mat-expansion-panel.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+}
+
 // HABIT COLORS SECTION
 
 $cyan: #22d3ee;

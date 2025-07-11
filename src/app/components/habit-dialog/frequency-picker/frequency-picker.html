@@ -10,6 +10,8 @@
       [expanded]="frequencyRadioSelect === 'D'"
       (opened)="setFrequencyRadioSelect('D')"
       hideToggle
+      (closed)="preventClosingCurrentPanel(panelD, 'D')"
+      #panelD
       class="h-12"
     >
       <mat-expansion-panel-header class="max-h-12">
@@ -24,6 +26,8 @@
       [expanded]="frequencyRadioSelect === 'W'"
       (opened)="setFrequencyRadioSelect('W')"
       hideToggle
+      (closed)="preventClosingCurrentPanel(panelW, 'W')"
+      #panelW
     >
       <mat-expansion-panel-header class="max-h-12">
         <mat-panel-title>
@@ -50,6 +54,8 @@
       [expanded]="frequencyRadioSelect === 'R'"
       (opened)="setFrequencyRadioSelect('R')"
       hideToggle
+      (closed)="preventClosingCurrentPanel(panelR, 'R')"
+      #panelR
     >
       <mat-expansion-panel-header class="max-h-12">
         <mat-panel-title>

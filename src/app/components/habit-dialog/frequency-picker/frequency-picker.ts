@@ -8,8 +8,10 @@ import {
 } from '@angular/forms';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatStepperModule } from '@angular/material/stepper';
+import {
+  MatExpansionModule,
+  MatExpansionPanel,
+} from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -24,7 +26,6 @@ import { WeekDayType } from '../../../types/week-day.type';
   imports: [
     CommonModule,
     MatRadioModule,
-    MatStepperModule,
     MatExpansionModule,
     MatCheckboxModule,
     FormsModule,
@@ -178,5 +179,14 @@ export class FrequencyPicker implements OnInit {
     this.weekDays[index].checked = newCheckedState;
     this.showWeekError = true;
     this.emitEncodedFrequency();
+  }
+
+  preventClosingCurrentPanel(
+    expansionPanel: MatExpansionPanel,
+    selected: string
+  ) {
+    if (this.frequencyRadioSelect === selected) {
+      expansionPanel.open();
+    }
   }
 }
