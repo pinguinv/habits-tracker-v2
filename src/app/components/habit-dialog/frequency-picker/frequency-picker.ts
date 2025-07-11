@@ -38,7 +38,7 @@ import { WeekDayType } from '../../../types/week-day.type';
 })
 export class FrequencyPicker implements OnInit {
   public frequencyInput = input<string>('');
-  protected frequencyOutput = output<string>();
+  protected frequencyChangedOutput = output<string>();
 
   protected frequencyRadioSelect = 'D';
   protected encodedFrequency = '';
@@ -114,7 +114,7 @@ export class FrequencyPicker implements OnInit {
 
   emitEncodedFrequency() {
     this.encodedFrequency = this.determineEncodedFrequency();
-    this.frequencyOutput.emit(this.encodedFrequency);
+    this.frequencyChangedOutput.emit(this.encodedFrequency);
   }
 
   determineEncodedFrequency(): string {

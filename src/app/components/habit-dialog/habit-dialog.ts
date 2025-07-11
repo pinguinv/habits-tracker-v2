@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -60,13 +60,13 @@ export class HabitDialog {
   );
 
   protected habitForm: FormGroup<HabitFormGroupType>;
-  protected encodedFrequency = signal('');
 
   constructor() {
     this.habitForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       shortDescription: new FormControl(''),
       color: new FormControl('cyan'),
+      frequency: new FormControl('', [Validators.required]),
     });
 
     if (this.habitDialogData.type === 'edit') {
@@ -83,14 +83,14 @@ export class HabitDialog {
   }
 
   saveAndCloseDialog() {
-    if (this.habitForm.invalid || this.encodedFrequency() === '') return;
+    if (this.habitForm.invalid) return;
 
     const habit: HabitType = {
       id: null,
       title: this.habitForm.controls.title.value,
       shortDescription: this.habitForm.controls.shortDescription.value,
       color: this.habitForm.controls.color.value,
-      frequency: this.encodedFrequency(),
+      frequency: this.habitForm.controls.frequency.value,
     };
 
     console.log(habit);
@@ -110,7 +110,7 @@ export class HabitDialog {
     this.dialogRef.close();
   }
 
-  setEncodedFrequency(encodedFrequency: string) {
-    this.encodedFrequency.set(encodedFrequency);
+  setFrequency(encodedFrequency: string) {
+    this.habitForm.controls.frequency.setValue(encodedFrequency);
   }
 }

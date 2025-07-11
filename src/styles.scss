@@ -90,6 +90,14 @@ mat-expansion-panel.mat-expansion-panel:not([class*='mat-elevation-z']) {
   box-shadow: none;
 }
 
+// This class prevents generating div under input inside mat-form-field
+// Also disables possibility of using mat-hint
+.no-bottom-align {
+  .mat-mdc-form-field-bottom-align {
+    display: none;
+  }
+}
+
 // HABIT COLORS SECTION
 
 $cyan: #22d3ee;
