@@ -7,18 +7,6 @@ export const appRoutes: Route[] = [
     component: Habits,
   },
   {
-    path: 'achievements',
-    loadComponent: () =>
-      import('./components/achievements/achievements').then(
-        (c) => c.Achievements
-      ),
-  },
-  {
-    path: 'charts',
-    loadComponent: () =>
-      import('./components/charts/charts').then((c) => c.Charts),
-  },
-  {
     path: '**',
     redirectTo: '',
   },

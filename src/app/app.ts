@@ -31,7 +31,7 @@ type RouteButton = {
 export class App implements OnInit {
   protected routeButtons: RouteButton[] = [
     { name: 'Habits', path: '' },
-    { name: 'Charts', path: '/charts' },
+    { name: 'Today', path: '/today' },
   ];
 
   protected isDarkTheme = signal(false);
