@@ -4,6 +4,9 @@ export type HabitType = {
   shortDescription: string;
   color: string;
   frequency: string;
+
+  startDate: string;
+  endDate: string;
 };
 
 // frequency encoding:
@@ -16,3 +19,6 @@ export type HabitType = {
 //  daysInterval: > 1
 //  daysDoTheHabit: > 0
 //  daysRest: > 0
+
+// startDate & endDate:
+//  YYYY-MM-DD

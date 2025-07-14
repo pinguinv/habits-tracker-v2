@@ -98,6 +98,13 @@ mat-expansion-panel.mat-expansion-panel:not([class*='mat-elevation-z']) {
   }
 }
 
+// Deletes expansion panel's bottom padding
+.no-bp-expansion-panel {
+  .mat-expansion-panel-body {
+    padding-bottom: 0;
+  }
+}
+
 // HABIT COLORS SECTION
 
 $cyan: #22d3ee;

@@ -74,12 +74,36 @@
           [frequencyInput]="habitDialogData.type === 'edit' ? habitDialogData.habitData.frequency : ''"
           (frequencyChangedOutput)="setFrequency($event)"
         ></app-frequency-picker>
-        <div class="w-full flex justify-between pt-4">
+        <div class="w-full flex justify-between pt-2">
+          <button matButton matStepperPrevious>Back</button>
+          <button
+            matButton
+            matStepperNext
+            [disabled]="habitForm.controls.frequency.invalid"
+          >
+            Next
+          </button>
+        </div>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="habitForm.controls.startDate">
+      <ng-template matStepLabel>Start & End</ng-template>
+      <ng-template matStepContent>
+        <app-start-end-date-picker
+          [datesInput]="habitDialogData.type === 'edit' 
+          ? {
+            valid: true,
+            startDate: habitDialogData.habitData.startDate, 
+            endDate: habitDialogData.habitData.endDate
+          } : null "
+          (datesChangedOutput)="setDates($event)"
+        ></app-start-end-date-picker>
+        <div class="w-full flex justify-between pt-2">
           <button matButton matStepperPrevious>Back</button>
           <button
             matButton
             (click)="saveAndCloseDialog()"
-            [disabled]="habitForm.controls.title.invalid"
+            [disabled]="disableSaveButton"
           >
             Save
           </button>

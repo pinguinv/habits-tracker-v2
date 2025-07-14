@@ -1,0 +1,97 @@
+<h2 class="text-xl pt-4 text-center">When do you want to do it?</h2>
+<div class="flex flex-col items-center gap-4 pt-4">
+  <mat-form-field
+    appearance="outline"
+    hideRequiredMarker
+    class="min-[540px]:w-[296px]"
+  >
+    <mat-label>Start Date</mat-label>
+    <input
+      matInput
+      required
+      title=""
+      [formControl]="startDateSelected"
+      [matDatepicker]="startDatePicker"
+      (dateInput)="onStartDateChanged()"
+    />
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      (click)="openDatePicker(startDatePicker)"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+    @if (startDateSelected.invalid) {
+    <mat-error>
+      <span>DD/MM/YYYY</span> <br />
+      <span>Select a valid start date</span>
+    </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-expansion-panel
+    [expanded]="isEndDateEnabled.value"
+    (opened)="setIsEndDateEnabled(true)"
+    (closed)="setIsEndDateEnabled(false)"
+    hideToggle
+    class="no-bp-expansion-panel"
+  >
+    <mat-expansion-panel-header class="max-h-12">
+      <mat-panel-title class="flex justify-center">
+        <mat-slide-toggle [formControl]="isEndDateEnabled">
+          End Date
+        </mat-slide-toggle>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="flex flex-col items-center">
+      <mat-form-field
+        appearance="outline"
+        hideRequiredMarker
+        class="min-[540px]:w-[296px] pt-2"
+        [class]="{'mb-2': endDateSelected.invalid && endDateSelected.touched}"
+      >
+        <mat-label>End Date</mat-label>
+        <input
+          matInput
+          title=""
+          [formControl]="endDateSelected"
+          [matDatepicker]="endDatePicker"
+          [min]="minEndDate"
+          (dateInput)="onEndDateChanged()"
+        />
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          (click)="openDatePicker(endDatePicker)"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        @if (endDateSelected.invalid) {
+        <mat-error>
+          <span>DD/MM/YYYY</span> <br />
+          <span>Select a valid end date</span>
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        hideRequiredMarker
+        class="pt-4 w-60 min-[540px]:w-[296px]"
+        [class]="{'no-bottom-align': duration.untouched || duration.valid}"
+      >
+        <mat-label>Duration</mat-label>
+        <input
+          matInput
+          title=""
+          type="number"
+          class="text-center"
+          [formControl]="duration"
+          (input)="onDurationChanged()"
+          (keydown.dot)="$event.preventDefault()"
+        />
+        <span matTextSuffix>&nbsp;days</span>
+        @if (duration.invalid) {
+        <mat-error>At least one day</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+</div>

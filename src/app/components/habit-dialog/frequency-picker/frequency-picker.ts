@@ -37,7 +37,7 @@ import { WeekDayType } from '../../../types/week-day.type';
   styleUrl: './frequency-picker.scss',
 })
 export class FrequencyPicker implements OnInit {
-  public frequencyInput = input<string>('');
+  public frequencyInput = input<string>();
   protected frequencyChangedOutput = output<string>();
 
   protected frequencyRadioSelect = 'D';

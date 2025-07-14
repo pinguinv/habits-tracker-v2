@@ -10,6 +10,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Stay hydrated by drinking water regularly.',
       color: 'cyan',
       frequency: 'D',
+      startDate: '2025-07-06',
+      endDate: '',
     },
     {
       id: 1,
@@ -17,6 +19,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Read a chapter to expand knowledge or relax.',
       color: 'violet',
       frequency: 'D',
+      startDate: '2025-07-07',
+      endDate: '',
     },
     {
       id: 2,
@@ -24,6 +28,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Take a brisk walk to unwind and stay active.',
       color: 'orange',
       frequency: 'W0,2,4,6',
+      startDate: '2025-07-08',
+      endDate: '',
     },
     {
       id: 3,
@@ -31,6 +37,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Practice mindfulness to start the day calmly.',
       color: 'red',
       frequency: 'D',
+      startDate: '2025-07-09',
+      endDate: '',
     },
     {
       id: 4,
@@ -38,6 +46,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Write down thoughts to reflect and gain clarity.',
       color: 'cyan',
       frequency: 'W0,3,6',
+      startDate: '2025-02-25',
+      endDate: '',
     },
     {
       id: 5,
@@ -45,6 +55,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Do a quick stretching session to relieve tension.',
       color: 'violet',
       frequency: 'D',
+      startDate: '2025-07-04',
+      endDate: '',
     },
     {
       id: 6,
@@ -52,6 +64,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Eat a nutritious snack to boost energy.',
       color: 'orange',
       frequency: 'D',
+      startDate: '2025-06-30',
+      endDate: '',
     },
     {
       id: 7,
@@ -59,6 +73,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Practice deep breathing to reduce stress.',
       color: 'red',
       frequency: 'RA1,1',
+      startDate: '2025-05-02',
+      endDate: '',
     },
     {
       id: 8,
@@ -66,6 +82,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Organize tasks for the next day to stay focused.',
       color: 'cyan',
       frequency: 'D',
+      startDate: '2025-01-04',
+      endDate: '',
     },
     {
       id: 9,
@@ -73,6 +91,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Spend time learning a new skill or hobby.',
       color: 'violet',
       frequency: 'W1,3,5',
+      startDate: '2025-01-01',
+      endDate: '2025-08-09',
     },
     {
       id: 10,
@@ -80,6 +100,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'Call or message a friend to stay connected.',
       color: 'orange',
       frequency: 'RR7',
+      startDate: '2025-07-10',
+      endDate: '2025-08-09',
     },
     {
       id: 11,
@@ -87,6 +109,8 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       shortDescription: 'List three things you’re grateful for today.',
       color: 'red',
       frequency: 'D',
+      startDate: '2025-07-03',
+      endDate: '',
     },
   ];
 

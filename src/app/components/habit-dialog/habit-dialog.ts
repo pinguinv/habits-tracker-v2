@@ -22,10 +22,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 
-import { HabitFormGroupType } from '../../types/habit-form-group.type';
 import { HabitsStore } from '../../store/habits.store';
-import { HabitType } from '../../types/habit.type';
 import { FrequencyPicker } from './frequency-picker/frequency-picker';
+import { StartEndDatePicker } from './start-end-date-picker/start-end-date-picker';
+
+import { HabitFormGroupType } from '../../types/habit-form-group.type';
+import { HabitType } from '../../types/habit.type';
+import { HabitDatesType } from '../../types/habit-dates.type';
 
 export type HabitDialogDataType = {
   type: 'add' | 'edit';
@@ -48,6 +51,7 @@ export type HabitDialogDataType = {
     MatIconModule,
     MatRadioModule,
     FrequencyPicker,
+    StartEndDatePicker,
   ],
   templateUrl: './habit-dialog.html',
   styleUrl: './habit-dialog.scss',
@@ -61,29 +65,46 @@ export class HabitDialog {
 
   protected habitForm: FormGroup<HabitFormGroupType>;
 
+  protected disableSaveButton = true;
+
   constructor() {
     this.habitForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       shortDescription: new FormControl(''),
       color: new FormControl('cyan'),
-      frequency: new FormControl('', [Validators.required]),
+      // Initially set to 'R' to prevent ExpressionChangedAfterItHasBeenCheckedError
+      frequency: new FormControl('R', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl(''),
     });
 
     if (this.habitDialogData.type === 'edit') {
       this.habitForm.controls.title.setValue(
         this.habitDialogData.habitData.title
       );
+
       this.habitForm.controls.shortDescription.setValue(
         this.habitDialogData.habitData.shortDescription
       );
+
       this.habitForm.controls.color.setValue(
         this.habitDialogData.habitData.color
       );
+
+      this.habitForm.controls.startDate.setValue(
+        this.habitDialogData.habitData.startDate
+      );
+
+      this.habitForm.controls.endDate.setValue(
+        this.habitDialogData.habitData.endDate
+      );
     }
+
+    this.disableSaveButton = this.habitForm.invalid;
   }
 
   saveAndCloseDialog() {
-    if (this.habitForm.invalid) return;
+    if (this.disableSaveButton) return;
 
     const habit: HabitType = {
       id: null,
@@ -91,6 +112,9 @@ export class HabitDialog {
       shortDescription: this.habitForm.controls.shortDescription.value,
       color: this.habitForm.controls.color.value,
       frequency: this.habitForm.controls.frequency.value,
+
+      startDate: this.habitForm.controls.startDate.value,
+      endDate: this.habitForm.controls.endDate.value,
     };
 
     console.log(habit);
@@ -112,5 +136,12 @@ export class HabitDialog {
 
   setFrequency(encodedFrequency: string) {
     this.habitForm.controls.frequency.setValue(encodedFrequency);
+  }
+
+  setDates(dates: HabitDatesType) {
+    this.habitForm.controls.startDate.setValue(dates.startDate);
+    this.habitForm.controls.endDate.setValue(dates.endDate);
+
+    this.disableSaveButton = this.habitForm.invalid || !dates.valid;
   }
 }
