@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltip } from '@angular/material/tooltip';
 
-import { HabitDialog, HabitDialogDataType } from '../habit-dialog/habit-dialog';
+import { HabitDialog } from '../habit-dialog/habit-dialog';
+import { HabitDialogDataType } from '../../types/habit-dialog.type';
 
 @Component({
   selector: 'app-add-habit-button',

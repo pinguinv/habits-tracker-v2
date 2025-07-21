@@ -29,11 +29,7 @@ import { StartEndDatePicker } from './start-end-date-picker/start-end-date-picke
 import { HabitFormGroupType } from '../../types/habit-form-group.type';
 import { HabitType } from '../../types/habit.type';
 import { HabitDatesType } from '../../types/habit-dates.type';
-
-export type HabitDialogDataType = {
-  type: 'add' | 'edit';
-  habitData?: HabitType;
-};
+import { HabitDialogDataType } from '../../types/habit-dialog.type';
 
 @Component({
   selector: 'app-add-habit-dialog',
