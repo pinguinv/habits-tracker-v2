@@ -1,8 +1,8 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { getWeekDays } from '../../../shared/week-days';
-import { WeekDayType } from '../../../types/week-day.type';
+import { getWeekDays } from '../../../../shared/week-days';
+import { WeekDayType } from '../../../../types/week-day.type';
 
 @Component({
   selector: 'app-small-frequency-display',

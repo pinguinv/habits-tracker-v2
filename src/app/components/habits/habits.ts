@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HabitsStore } from '../../store/habits.store';
-import { Habit } from '../habit/habit';
+import { Habit } from './habit/habit';
 
 @Component({
   selector: 'app-habits',
