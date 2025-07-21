@@ -55,7 +55,7 @@
           title=""
           [formControl]="endDateSelected"
           [matDatepicker]="endDatePicker"
-          [min]="minEndDate"
+          [min]="minEndDate()"
           (dateInput)="onEndDateChanged()"
         />
         <mat-hint>DD/MM/YYYY</mat-hint>

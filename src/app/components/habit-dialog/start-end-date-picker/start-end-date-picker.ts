@@ -48,9 +48,14 @@ export class StartEndDatePicker implements OnInit {
   public datesInput = input<HabitDatesType>();
   public datesChangedOutput = output<HabitDatesType>();
 
-  protected startDateSelected = new FormControl<moment.Moment>(moment(), [
-    Validators.required,
-  ]);
+  protected startDateSelected = new FormControl<moment.Moment>(
+    // Creating new Moment in this way is necessary to prevent bug
+    // - when user wants to add a new habit and selects endDate
+    // without changing startDate, the duration is miscalculated
+    // by one day.
+    moment(moment().format('YYYY-MM-DD')),
+    [Validators.required]
+  );
   protected endDateSelected = new FormControl<moment.Moment>(null, []);
   protected isEndDateEnabled = new FormControl<boolean>(false);
   protected duration = new FormControl<number>(null, [
@@ -87,7 +92,9 @@ export class StartEndDatePicker implements OnInit {
       }
     }
 
-    this.emitChangedDates();
+    // Initially call to set the minEndDate
+    // and emit date value to parent component
+    this.onStartDateChanged();
   }
 
   openDatePicker(datePicker: MatDatepicker<unknown>) {
@@ -149,8 +156,6 @@ export class StartEndDatePicker implements OnInit {
   }
 
   updateMinEndDate() {
-    if (!this.isEndDateEnabled.value) return;
-
     const updatedMinEndDate = this.startDateSelected.value
       .clone()
       .add(1, 'day');
@@ -170,9 +175,10 @@ export class StartEndDatePicker implements OnInit {
   updateDuration() {
     if (this.endDateSelected.value === null) return;
 
-    const difference = this.endDateSelected.value
-      .clone()
-      .diff(moment(this.startDateSelected.value), 'days');
+    const difference = this.endDateSelected.value.diff(
+      moment(this.startDateSelected.value),
+      'days'
+    );
 
     this.duration.setValue(difference);
     this.duration.markAsTouched();
