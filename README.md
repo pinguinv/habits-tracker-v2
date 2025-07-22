@@ -13,10 +13,7 @@ Focusing on frontend for now, backend comes later.
 * [Angular Material Components](https://material.angular.dev/)
 * [Tailwind CSS](https://tailwindcss.com/)
 * [Nx](https://nx.dev/) & [Nx Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
-
-#### Future Plans
-
-* Maybe add [NgRx Signal Store](https://ngrx.io/guide/signals/signal-store) for state management.
+* [NgRx Signal Store](https://ngrx.io/guide/signals/signal-store)
 
 ### Backend
 
