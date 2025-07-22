@@ -1,0 +1,20 @@
+<mat-card
+  matRipple
+  appearance="outlined"
+  class="overflow-hidden cursor-pointer"
+  (click)="evalHabit()"
+>
+  <mat-card-header>
+    <mat-card-title>
+      <span
+        class="h-4 w-4 mt-1 rounded-md inline-block"
+        [class]="habitData().color"
+      >
+      </span>
+      {{habitData().title}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="!pb-4">
+    <p>{{habitData().shortDescription}}</p>
+  </mat-card-content>
+</mat-card>

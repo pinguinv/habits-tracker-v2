@@ -32,7 +32,7 @@ export class AddHabitButton {
     { initialValue: '/' }
   );
 
-  protected showButton = computed(() => this.routeSignal() === '/');
+  protected showButton = computed(() => this.routeSignal() === '/habits');
 
   // conditionally rendering so there is no
   // animation of disabled button sliding out

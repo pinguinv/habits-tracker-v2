@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { MatTabsModule } from '@angular/material/tabs';
@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AddHabitButton } from './components/add-habit-button/add-habit-button';
+import { HabitsStore } from './store/habits.store';
 
 type RouteButton = {
   name: string;
@@ -29,9 +30,11 @@ type RouteButton = {
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
+  protected store = inject(HabitsStore);
+
   protected routeButtons: RouteButton[] = [
-    { name: 'Habits', path: '' },
-    { name: 'Today', path: '/today' },
+    { name: 'Today', path: '' },
+    { name: 'Habits', path: '/habits' },
   ];
 
   protected isDarkTheme = signal(false);
@@ -46,6 +49,8 @@ export class App implements OnInit {
       this.isDarkTheme.set(true);
       document.documentElement.classList.add('dark');
     }
+
+    this.store.fetchData();
   }
 
   toggleDarkTheme() {

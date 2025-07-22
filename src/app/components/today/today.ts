@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HabitsStore } from '../../store/habits.store';
-import { Habit } from './habit/habit';
+import { HabitToday } from './habit-today/habit-today';
 
 @Component({
-  selector: 'app-habits',
-  imports: [CommonModule, MatProgressSpinnerModule, Habit],
-  templateUrl: './habits.html',
-  styleUrl: './habits.scss',
+  selector: 'app-today',
+  imports: [CommonModule, MatProgressSpinnerModule, HabitToday],
+  templateUrl: './today.html',
+  styleUrl: './today.scss',
 })
-export class Habits {
+export class Today {
   protected store = inject(HabitsStore);
 
-  protected allHabits = computed(() => this.store.habits());
+  protected todaysHabits = computed(() => this.store.getTodaysHabits());
 }

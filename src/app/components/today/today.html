@@ -2,13 +2,13 @@
   <div
     class="w-full pt-3 px-2 sm:w-[600px] lg:w-[860px] flex flex-col gap-y-4 pb-4"
   >
-    @for (habit of allHabits(); track $index) {
-    <app-habit [habitData]="habit" />
+    @for (habit of todaysHabits(); track $index) {
+    <app-habit-today [habitData]="habit" />
     } @if (!store.isLoadedData()) {
     <div class="w-full flex justify-center pt-8">
       <mat-spinner></mat-spinner>
     </div>
-    } @else if (allHabits().length === 0) {
+    } @else if (store.habits().length === 0) {
     <div class="w-full flex justify-center pt-8 text-xl">
       No habits to display.
     </div>

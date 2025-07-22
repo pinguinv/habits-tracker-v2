@@ -8,6 +8,8 @@ import { provideRouter } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDateFormats } from '@angular/material/core';
 
+import 'moment/locale/en-gb';
+
 import { appRoutes } from './app.routes';
 
 const DATE_FORMAT: MatDateFormats = {
