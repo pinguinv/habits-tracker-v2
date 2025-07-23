@@ -1,3 +1,12 @@
-.bg {
-  background-color: var(--mat-sys-background);
+mat-sidenav-container {
+  height: calc(100% - 56px);
+}
+
+.text-with-shadow {
+  // --mat-sys-primary-container
+  text-shadow: 0.15rem 0.15rem light-dark(#ecdcff, #513c73);
+}
+
+.active-route {
+  background-color: var(--mat-sys-primary-container);
 }

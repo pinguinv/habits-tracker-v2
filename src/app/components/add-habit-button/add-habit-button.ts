@@ -1,9 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
-import { debounce, filter, map, of, timer } from 'rxjs';
+import { debounce, of, timer } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,18 +20,9 @@ import { HabitDialogDataType } from '../../types/habit-dialog.type';
 })
 export class AddHabitButton {
   private dialog = inject(MatDialog);
-  private router = inject(Router);
+  public route = input.required<string>();
 
-  // why: to show or hide 'add habit button'
-  private routeSignal = toSignal(
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e: NavigationEnd) => e.urlAfterRedirects)
-    ),
-    { initialValue: '/' }
-  );
-
-  protected showButton = computed(() => this.routeSignal() === '/habits');
+  protected showButton = computed(() => this.route() === '/habits');
 
   // conditionally rendering so there is no
   // animation of disabled button sliding out
