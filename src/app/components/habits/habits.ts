@@ -13,7 +13,7 @@ import { Habit } from './habit/habit';
   styleUrl: './habits.scss',
 })
 export class Habits {
-  protected store = inject(HabitsStore);
+  protected readonly store = inject(HabitsStore);
 
-  protected allHabits = computed(() => this.store.habits());
+  protected readonly allHabits = computed(() => this.store.habits());
 }

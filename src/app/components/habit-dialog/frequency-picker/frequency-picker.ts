@@ -37,29 +37,29 @@ import { WeekDayType } from '../../../types/week-day.type';
   styleUrl: './frequency-picker.scss',
 })
 export class FrequencyPicker implements OnInit {
-  public frequencyInput = input<string>();
-  protected frequencyChangedOutput = output<string>();
+  public readonly frequencyInput = input<string>();
+  protected readonly frequencyChangedOutput = output<string>();
 
   protected frequencyRadioSelect = 'D';
   protected encodedFrequency = '';
 
   // specific days of the week option
   protected showWeekError = false;
-  protected weekDays: WeekDayType[] = getWeekDays();
+  protected readonly weekDays: WeekDayType[] = getWeekDays();
 
   // repeat option
   protected alternateDays = false;
-  protected repeatDays = new FormControl(2, [
+  protected readonly repeatDays = new FormControl(2, [
     Validators.required,
     greaterThan(1),
     integerOnly(),
   ]);
-  protected activeDays = new FormControl<number>(null, [
+  protected readonly activeDays = new FormControl<number>(null, [
     Validators.required,
     greaterThan(0),
     integerOnly(),
   ]);
-  protected restDays = new FormControl<number>(null, [
+  protected readonly restDays = new FormControl<number>(null, [
     Validators.required,
     greaterThan(0),
     integerOnly(),

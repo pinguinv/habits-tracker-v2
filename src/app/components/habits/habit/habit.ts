@@ -23,8 +23,8 @@ import { HabitDialogDataType } from '../../../types/habit-dialog.type';
   styleUrl: './habit.scss',
 })
 export class Habit {
-  private dialog = inject(MatDialog);
-  public habitData = input<HabitType>();
+  private readonly dialog = inject(MatDialog);
+  public readonly habitData = input<HabitType>();
 
   openEditHabitDialog() {
     const dialogData: HabitDialogDataType = {

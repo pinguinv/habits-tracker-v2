@@ -19,15 +19,15 @@ import { HabitDialogDataType } from '../../types/habit-dialog.type';
   styleUrl: './add-habit-button.scss',
 })
 export class AddHabitButton {
-  private dialog = inject(MatDialog);
-  public route = input.required<string>();
+  private readonly dialog = inject(MatDialog);
+  public readonly route = input.required<string>();
 
-  protected showButton = computed(() => this.route() === '/habits');
+  protected readonly showButton = computed(() => this.route() === '/habits');
 
   // conditionally rendering so there is no
   // animation of disabled button sliding out
   // during window resizing/refreshing
-  protected renderButton = toSignal(
+  protected readonly renderButton = toSignal(
     toObservable(this.showButton).pipe(
       debounce((v) => (v ? of({}) : timer(550)))
     ),

@@ -13,7 +13,9 @@ import { HabitToday } from './habit-today/habit-today';
   styleUrl: './today.scss',
 })
 export class Today {
-  protected store = inject(HabitsStore);
+  protected readonly store = inject(HabitsStore);
 
-  protected todaysHabits = computed(() => this.store.getTodaysHabits());
+  protected readonly todaysHabits = computed(() =>
+    this.store.getTodaysHabits()
+  );
 }

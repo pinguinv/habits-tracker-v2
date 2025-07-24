@@ -45,10 +45,10 @@ import { HabitDatesType } from '../../../types/habit-dates.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StartEndDatePicker implements OnInit {
-  public datesInput = input<HabitDatesType>();
-  public datesChangedOutput = output<HabitDatesType>();
+  public readonly datesInput = input<HabitDatesType>();
+  public readonly datesChangedOutput = output<HabitDatesType>();
 
-  protected startDateSelected = new FormControl<moment.Moment>(
+  protected readonly startDateSelected = new FormControl<moment.Moment>(
     // Creating new Moment in this way is necessary to prevent bug
     // - when user wants to add a new habit and selects endDate
     // without changing startDate, the duration is miscalculated
@@ -56,14 +56,14 @@ export class StartEndDatePicker implements OnInit {
     moment(moment().format('YYYY-MM-DD')),
     [Validators.required]
   );
-  protected endDateSelected = new FormControl<moment.Moment>(null, []);
-  protected isEndDateEnabled = new FormControl<boolean>(false);
-  protected duration = new FormControl<number>(null, [
+  protected readonly endDateSelected = new FormControl<moment.Moment>(null, []);
+  protected readonly isEndDateEnabled = new FormControl<boolean>(false);
+  protected readonly duration = new FormControl<number>(null, [
     integerOnly(),
     greaterThan(0),
   ]);
 
-  protected minEndDate: WritableSignal<moment.Moment> = model(null);
+  protected readonly minEndDate: WritableSignal<moment.Moment> = model(null);
 
   ngOnInit() {
     // set initial state if provided

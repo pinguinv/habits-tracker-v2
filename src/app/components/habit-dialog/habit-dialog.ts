@@ -56,15 +56,15 @@ import { integerOnly } from '../../shared/integer-only.directive';
   styleUrl: './habit-dialog.scss',
 })
 export class HabitDialog {
-  private dialogRef = inject(MatDialogRef<HabitDialog>);
-  private store = inject(HabitsStore);
-  protected habitDialogData = inject<HabitDialogDataType | null>(
+  private readonly dialogRef = inject(MatDialogRef<HabitDialog>);
+  private readonly store = inject(HabitsStore);
+  protected readonly habitDialogData = inject<HabitDialogDataType | null>(
     MAT_DIALOG_DATA
   );
 
-  protected habitForm: FormGroup<HabitFormGroupType>;
+  protected readonly habitForm: FormGroup<HabitFormGroupType>;
 
-  protected disableSaveButton = signal(true);
+  protected readonly disableSaveButton = signal(true);
 
   constructor() {
     this.habitForm = new FormGroup({

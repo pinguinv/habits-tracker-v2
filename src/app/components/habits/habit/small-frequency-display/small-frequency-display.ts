@@ -11,12 +11,12 @@ import { WeekDayType } from '../../../../types/week-day.type';
   styleUrl: './small-frequency-display.scss',
 })
 export class SmallFrequencyDisplay {
-  public displayColor = input.required<string>();
-  public encodedFrequency = input.required<string>();
+  public readonly displayColor = input.required<string>();
+  public readonly encodedFrequency = input.required<string>();
 
-  private weekDays: WeekDayType[] = getWeekDays();
+  private readonly weekDays: WeekDayType[] = getWeekDays();
 
-  protected displayedMessage = computed<string>(() => {
+  protected readonly displayedMessage = computed<string>(() => {
     const frequency = this.encodedFrequency();
     let message = '';
 
