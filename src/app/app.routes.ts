@@ -1,15 +1,15 @@
 import { Route } from '@angular/router';
-import { Habits } from './components/habits/habits';
-import { Today } from './components/today/today';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: Today,
+    loadComponent: () =>
+      import('./components/today/today').then((m) => m.Today),
   },
   {
     path: 'habits',
-    component: Habits,
+    loadComponent: () =>
+      import('./components/habits/habits').then((m) => m.Habits),
   },
   {
     path: '**',
