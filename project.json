@@ -6,10 +6,17 @@
   "prefix": "app",
   "sourceRoot": "./src",
   "tags": [],
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/habits-tracker-v2",
         "browser": "./src/main.ts",
@@ -20,7 +27,10 @@
             "input": "public"
           }
         ],
-        "styles": ["./src/themes/habitstheme.css", "./src/styles.scss"]
+        "styles": [
+          "./src/themes/habitstheme.css",
+          "./src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -68,12 +78,16 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": [
+          "./src"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectName}"
+      ],
       "options": {
         "jestConfig": "jest.config.ts"
       }
@@ -87,11 +101,6 @@
         "staticFilePath": "dist/habits-tracker-v2/browser",
         "spa": true
       }
-    }
-  },
-  "generators": {
-    "@schematics/angular:component": {
-      "style": "scss"
     }
   }
 }
