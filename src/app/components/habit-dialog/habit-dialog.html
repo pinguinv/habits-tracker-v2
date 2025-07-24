@@ -34,11 +34,12 @@
             hideRequiredMarker
             floatLabel="always"
             appearance="outline"
+            [class]="{'no-bottom-align': habitForm.controls.title.untouched || habitForm.controls.title.valid}"
           >
             <mat-label>Habit Title</mat-label>
             <input matInput formControlName="title" required title="" />
             @if (habitForm.controls.title.invalid) {
-            <mat-error>Enter a name</mat-error>
+            <mat-error class="text-sm">Enter a name</mat-error>
             }
           </mat-form-field>
 
@@ -123,7 +124,9 @@
 
           @if (habitForm.controls.priority.invalid &&
           habitForm.controls.priority.touched ) {
-          <mat-error> Enter an integer greater than zero </mat-error>
+          <mat-error class="text-sm">
+            Enter an integer greater than zero
+          </mat-error>
           }
         </div>
 

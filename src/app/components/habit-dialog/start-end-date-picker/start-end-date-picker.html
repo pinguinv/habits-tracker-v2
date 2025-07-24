@@ -1,5 +1,5 @@
 <h2 class="text-xl pt-4 text-center">When do you want to do it?</h2>
-<div class="flex flex-col items-center gap-4 pt-4">
+<div class="flex flex-col items-center pt-4">
   <mat-form-field
     appearance="outline"
     hideRequiredMarker
@@ -14,17 +14,14 @@
       [matDatepicker]="startDatePicker"
       (dateInput)="onStartDateChanged()"
     />
-    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-hint class="text-sm">DD/MM/YYYY</mat-hint>
     <mat-datepicker-toggle
       matIconSuffix
       (click)="openDatePicker(startDatePicker)"
     ></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
     @if (startDateSelected.invalid) {
-    <mat-error>
-      <span>DD/MM/YYYY</span> <br />
-      <span>Select a valid start date</span>
-    </mat-error>
+    <mat-error class="text-sm">Select a valid start date </mat-error>
     }
   </mat-form-field>
 
@@ -47,7 +44,6 @@
         appearance="outline"
         hideRequiredMarker
         class="min-[540px]:w-[296px] pt-2"
-        [class]="{'mb-2': endDateSelected.invalid && endDateSelected.touched}"
       >
         <mat-label>End Date</mat-label>
         <input
@@ -58,17 +54,14 @@
           [min]="minEndDate()"
           (dateInput)="onEndDateChanged()"
         />
-        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-hint class="text-sm">DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           (click)="openDatePicker(endDatePicker)"
         ></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
         @if (endDateSelected.invalid) {
-        <mat-error>
-          <span>DD/MM/YYYY</span> <br />
-          <span>Select a valid end date</span>
-        </mat-error>
+        <mat-error class="text-sm">Select a valid end date </mat-error>
         }
       </mat-form-field>
       <mat-form-field
@@ -89,7 +82,7 @@
         />
         <span matTextSuffix>&nbsp;days</span>
         @if (duration.invalid) {
-        <mat-error>At least one day</mat-error>
+        <mat-error class="text-sm">At least one day</mat-error>
         }
       </mat-form-field>
     </div>

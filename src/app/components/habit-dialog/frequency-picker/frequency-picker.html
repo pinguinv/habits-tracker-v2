@@ -44,10 +44,11 @@
         >
           {{weekDay.day}}
         </mat-checkbox>
-        } @if (showWeekError && encodedFrequency === '') {
-        <mat-error>Select at least one day</mat-error>
         }
       </div>
+      @if (showWeekError && encodedFrequency === '') {
+      <mat-error class="text-center text-sm">Select at least one day</mat-error>
+      }
     </mat-expansion-panel>
 
     <mat-expansion-panel
@@ -69,7 +70,7 @@
         <mat-form-field
           floatLabel="always"
           appearance="outline"
-          class="max-w-full"
+          class="max-w-full no-bottom-align"
         >
           <input
             matInput
@@ -84,15 +85,15 @@
           <span matTextPrefix>Every&nbsp;</span>
           <span matTextSuffix>&nbsp;days</span>
         </mat-form-field>
-        @if (repeatDays.invalid) {
-        <mat-error class="text-center pb-4">
+        @if (repeatDays.invalid && repeatDays.touched) {
+        <mat-error class="text-center text-sm">
           Enter an integer greater than one
         </mat-error>
         } } @else {
 
         <div class="grid grid-cols-7 grid-rows-1">
           <mat-form-field
-            class="col-span-3 col-start-1 h-fit"
+            class="col-span-3 col-start-1 h-fit no-bottom-align"
             appearance="outline"
             hideRequiredMarker
           >
@@ -112,7 +113,7 @@
             >x</span
           >
           <mat-form-field
-            class="col-span-3 col-start-5 h-fit"
+            class="col-span-3 col-start-5 h-fit no-bottom-align"
             appearance="outline"
             hideRequiredMarker
           >
@@ -130,14 +131,15 @@
           </mat-form-field>
           @if (activeDays.touched && activeDays.invalid || restDays.touched &&
           restDays.invalid) {
-          <mat-error class="col-span-7 text-center pb-4">
-            Enter an integers greater than zero
+          <mat-error class="col-span-7 text-center text-sm">
+            Enter integers greater than zero
           </mat-error>
           }
         </div>
         }
 
         <mat-slide-toggle
+          class="pt-4"
           [(ngModel)]="alternateDays"
           (click)="emitEncodedFrequency()"
         >

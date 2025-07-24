@@ -88,7 +88,7 @@ export class StartEndDatePicker implements OnInit {
         this.endDateSelected.markAsTouched();
 
         this.updateDuration();
-        this.duration.markAllAsTouched();
+        this.duration.markAsTouched();
       }
     }
 
