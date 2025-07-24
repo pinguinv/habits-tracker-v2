@@ -108,7 +108,8 @@ export const HabitsStore = signalStore(
       getTodaysHabits(): HabitType[] {
         const todaysHabits = store
           .habits()
-          .filter((habit) => checkIfIsTodaysHabit(habit));
+          .filter((habit) => checkIfIsTodaysHabit(habit))
+          .sort((a, b) => b.priority - a.priority);
 
         return todaysHabits;
       },

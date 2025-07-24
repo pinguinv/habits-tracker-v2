@@ -89,21 +89,50 @@
     <mat-step [stepControl]="habitForm.controls.startDate">
       <ng-template matStepLabel>Start & End</ng-template>
       <ng-template matStepContent>
-        <app-start-end-date-picker
-          [datesInput]="habitDialogData.type === 'edit' 
-          ? {
-            valid: true,
-            startDate: habitDialogData.habitData.startDate, 
-            endDate: habitDialogData.habitData.endDate
-          } : null "
-          (datesChangedOutput)="setDates($event)"
-        ></app-start-end-date-picker>
+        <div class="flex flex-col items-center">
+          <app-start-end-date-picker
+            [datesInput]="habitDialogData.type === 'edit' 
+            ? {
+              valid: true,
+              startDate: habitDialogData.habitData.startDate, 
+              endDate: habitDialogData.habitData.endDate
+            } : null "
+            (datesChangedOutput)="setDates($event)"
+          ></app-start-end-date-picker>
+
+          <!-- priority -->
+
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            hideRequiredMarker
+            class="max-w-full w-32 pt-4 no-bottom-align"
+          >
+            <mat-label>Priority</mat-label>
+            <input
+              matInput
+              required
+              formControlName="priority"
+              (input)="onPriorityChange()"
+              (keydown.dot)="$event.preventDefault()"
+              type="number"
+              class="text-center"
+              title=""
+            />
+          </mat-form-field>
+
+          @if (habitForm.controls.priority.invalid &&
+          habitForm.controls.priority.touched ) {
+          <mat-error> Enter an integer greater than zero </mat-error>
+          }
+        </div>
+
         <div class="w-full flex justify-between pt-2">
           <button matButton matStepperPrevious>Back</button>
           <button
             matButton
             (click)="saveAndCloseDialog()"
-            [disabled]="disableSaveButton"
+            [disabled]="disableSaveButton()"
           >
             Save
           </button>

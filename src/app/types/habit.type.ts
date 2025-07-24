@@ -4,9 +4,9 @@ export type HabitType = {
   shortDescription: string;
   color: string;
   frequency: string;
-
   startDate: string;
   endDate: string;
+  priority: number;
 };
 
 // frequency encoding:

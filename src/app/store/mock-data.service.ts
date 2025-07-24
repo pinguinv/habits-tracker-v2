@@ -12,6 +12,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'D',
       startDate: '2025-07-06',
       endDate: '',
+      priority: 1,
     },
     {
       id: 1,
@@ -21,6 +22,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'W1,3,5',
       startDate: '2025-07-07',
       endDate: '',
+      priority: 2,
     },
     {
       id: 2,
@@ -30,6 +32,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'W0,2,4,6',
       startDate: '2025-07-08',
       endDate: '',
+      priority: 1,
     },
     {
       id: 3,
@@ -39,6 +42,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'RA1,2',
       startDate: '2025-07-09',
       endDate: '',
+      priority: 1,
     },
     {
       id: 4,
@@ -48,6 +52,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'W0,3,6',
       startDate: '2025-02-25',
       endDate: '',
+      priority: 1,
     },
     {
       id: 5,
@@ -57,6 +62,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'D',
       startDate: '2025-07-04',
       endDate: '',
+      priority: 4,
     },
     {
       id: 6,
@@ -66,6 +72,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'D',
       startDate: '2025-06-30',
       endDate: '',
+      priority: 1,
     },
     {
       id: 7,
@@ -75,6 +82,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'RA1,1',
       startDate: '2025-05-02',
       endDate: '',
+      priority: 2,
     },
     {
       id: 8,
@@ -84,6 +92,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'D',
       startDate: '2025-01-04',
       endDate: '',
+      priority: 3,
     },
     {
       id: 9,
@@ -93,6 +102,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'W1,3,5',
       startDate: '2025-01-01',
       endDate: '2025-08-09',
+      priority: 5,
     },
     {
       id: 10,
@@ -102,6 +112,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'RR7',
       startDate: '2025-07-10',
       endDate: '2025-08-09',
+      priority: 1,
     },
     {
       id: 11,
@@ -111,6 +122,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       frequency: 'W0,2,3',
       startDate: '2025-07-03',
       endDate: '',
+      priority: 1,
     },
   ];
 

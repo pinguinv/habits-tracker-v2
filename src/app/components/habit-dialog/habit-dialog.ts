@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -31,6 +31,9 @@ import { HabitType } from '../../types/habit.type';
 import { HabitDatesType } from '../../types/habit-dates.type';
 import { HabitDialogDataType } from '../../types/habit-dialog.type';
 
+import { greaterThan } from '../../shared/greater-than.directive';
+import { integerOnly } from '../../shared/integer-only.directive';
+
 @Component({
   selector: 'app-add-habit-dialog',
   imports: [
@@ -61,7 +64,7 @@ export class HabitDialog {
 
   protected habitForm: FormGroup<HabitFormGroupType>;
 
-  protected disableSaveButton = true;
+  protected disableSaveButton = signal(true);
 
   constructor() {
     this.habitForm = new FormGroup({
@@ -72,6 +75,11 @@ export class HabitDialog {
       frequency: new FormControl('R', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl(''),
+      priority: new FormControl(1, [
+        Validators.required,
+        integerOnly(),
+        greaterThan(0),
+      ]),
     });
 
     if (this.habitDialogData.type === 'edit') {
@@ -94,13 +102,17 @@ export class HabitDialog {
       this.habitForm.controls.endDate.setValue(
         this.habitDialogData.habitData.endDate
       );
+
+      this.habitForm.controls.priority.setValue(
+        this.habitDialogData.habitData.priority
+      );
     }
 
-    this.disableSaveButton = this.habitForm.invalid;
+    this.disableSaveButton.set(this.habitForm.invalid);
   }
 
   saveAndCloseDialog() {
-    if (this.disableSaveButton) return;
+    if (this.disableSaveButton()) return;
 
     const habit: HabitType = {
       id: null,
@@ -108,9 +120,9 @@ export class HabitDialog {
       shortDescription: this.habitForm.controls.shortDescription.value,
       color: this.habitForm.controls.color.value,
       frequency: this.habitForm.controls.frequency.value,
-
       startDate: this.habitForm.controls.startDate.value,
       endDate: this.habitForm.controls.endDate.value,
+      priority: this.habitForm.controls.priority.value,
     };
 
     console.log(habit);
@@ -138,6 +150,10 @@ export class HabitDialog {
     this.habitForm.controls.startDate.setValue(dates.startDate);
     this.habitForm.controls.endDate.setValue(dates.endDate);
 
-    this.disableSaveButton = this.habitForm.invalid || !dates.valid;
+    this.disableSaveButton.set(this.habitForm.invalid || !dates.valid);
+  }
+
+  onPriorityChange() {
+    this.disableSaveButton.set(this.habitForm.invalid);
   }
 }
