@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FormControl,
+  FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -27,7 +27,7 @@ import { FrequencyPicker } from './frequency-picker/frequency-picker';
 import { StartEndDatePicker } from './start-end-date-picker/start-end-date-picker';
 import { HabitEvalMethodDetails } from './habit-eval-method-details/habit-eval-method-details';
 
-import { HabitFormGroupType } from '../../types/habit-form-group.type';
+import { StepsFormGroupType } from '../../types/steps-form-group.type';
 import { HabitType } from '../../types/habit.type';
 import { HabitDatesType } from '../../types/habit-dates.type';
 import { HabitDialogDataType } from '../../types/habit-dialog.type';
@@ -65,34 +65,39 @@ export class HabitDialog {
     MAT_DIALOG_DATA
   );
 
-  protected readonly habitForm: FormGroup<HabitFormGroupType>;
+  private readonly formBuilder = inject(FormBuilder);
+
+  protected readonly stepsForm: FormGroup<StepsFormGroupType>;
 
   protected readonly disableSaveButton = signal(true);
   protected readonly evalMethodRadioValue =
     signal<pickedEvalMethodType>('YesNo');
 
   constructor() {
-    this.habitForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      shortDescription: new FormControl(''),
-      color: new FormControl('cyan'),
-      // Initially set to 'R' to prevent ExpressionChangedAfterItHasBeenCheckedError
-      frequency: new FormControl('R', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
-      endDate: new FormControl(''),
-      priority: new FormControl(1, [
-        Validators.required,
-        integerOnly(),
-        greaterThan(0),
-      ]),
-      evalMethod: new FormControl('', [Validators.required]),
+    this.stepsForm = this.formBuilder.group({
+      firstStep: this.formBuilder.group({
+        color: ['cyan'],
+      }),
+      secondStep: this.formBuilder.group({
+        title: ['', [Validators.required]],
+        evalMethod: ['', [Validators.required]],
+        shortDescription: [''],
+      }),
+      thirdStep: this.formBuilder.group({
+        frequency: ['R', [Validators.required]],
+      }),
+      fourthStep: this.formBuilder.group({
+        startDate: ['', [Validators.required]],
+        priority: [1, [Validators.required, integerOnly(), greaterThan(0)]],
+        endDate: [''],
+      }),
     });
 
     if (this.habitDialogData.type === 'edit') {
       this.loadHabitDataToForm();
     }
 
-    this.disableSaveButton.set(this.habitForm.invalid);
+    this.disableSaveButton.set(this.stepsForm.invalid);
   }
 
   protected saveAndCloseDialog() {
@@ -100,14 +105,18 @@ export class HabitDialog {
 
     const habit: HabitType = {
       id: null,
-      title: this.habitForm.controls.title.value,
-      shortDescription: this.habitForm.controls.shortDescription.value,
-      color: this.habitForm.controls.color.value,
-      frequency: this.habitForm.controls.frequency.value,
-      startDate: this.habitForm.controls.startDate.value,
-      endDate: this.habitForm.controls.endDate.value,
-      priority: this.habitForm.controls.priority.value,
-      evalMethod: this.habitForm.controls.evalMethod.value,
+      color: this.stepsForm.controls.firstStep.controls.color.value,
+
+      title: this.stepsForm.controls.secondStep.controls.title.value,
+      evalMethod: this.stepsForm.controls.secondStep.controls.evalMethod.value,
+      shortDescription:
+        this.stepsForm.controls.secondStep.controls.shortDescription.value,
+
+      frequency: this.stepsForm.controls.thirdStep.controls.frequency.value,
+
+      startDate: this.stepsForm.controls.fourthStep.controls.startDate.value,
+      priority: this.stepsForm.controls.fourthStep.controls.priority.value,
+      endDate: this.stepsForm.controls.fourthStep.controls.endDate.value,
     };
 
     console.log(habit);
@@ -128,53 +137,58 @@ export class HabitDialog {
   }
 
   protected setFrequency(encodedFrequency: string) {
-    this.habitForm.controls.frequency.setValue(encodedFrequency);
+    this.stepsForm.controls.thirdStep.controls.frequency.setValue(
+      encodedFrequency
+    );
   }
 
   protected setDates(dates: HabitDatesType) {
-    this.habitForm.controls.startDate.setValue(dates.startDate);
-    this.habitForm.controls.endDate.setValue(dates.endDate);
+    this.stepsForm.controls.fourthStep.controls.startDate.setValue(
+      dates.startDate
+    );
+    this.stepsForm.controls.fourthStep.controls.endDate.setValue(dates.endDate);
 
-    this.disableSaveButton.set(this.habitForm.invalid || !dates.valid);
+    this.disableSaveButton.set(this.stepsForm.invalid || !dates.valid);
   }
 
   protected onPriorityChange() {
-    this.disableSaveButton.set(this.habitForm.invalid);
+    this.disableSaveButton.set(this.stepsForm.invalid);
   }
 
   protected setEvalMethod(encodedEvalMethod: string) {
-    console.log(encodedEvalMethod);
-    this.habitForm.controls.evalMethod.setValue(encodedEvalMethod);
-    this.disableSaveButton.set(this.habitForm.invalid);
+    this.stepsForm.controls.secondStep.controls.evalMethod.setValue(
+      encodedEvalMethod
+    );
+    this.disableSaveButton.set(this.stepsForm.invalid);
   }
 
   private loadHabitDataToForm() {
-    this.habitForm.controls.title.setValue(
-      this.habitDialogData.habitData.title
-    );
-
-    this.habitForm.controls.shortDescription.setValue(
-      this.habitDialogData.habitData.shortDescription
-    );
-
-    this.habitForm.controls.color.setValue(
+    this.stepsForm.controls.firstStep.controls.color.setValue(
       this.habitDialogData.habitData.color
     );
 
-    this.habitForm.controls.startDate.setValue(
+    this.stepsForm.controls.secondStep.controls.title.setValue(
+      this.habitDialogData.habitData.title
+    );
+
+    this.stepsForm.controls.secondStep.controls.evalMethod.setValue(
+      this.habitDialogData.habitData.evalMethod
+    );
+
+    this.stepsForm.controls.secondStep.controls.shortDescription.setValue(
+      this.habitDialogData.habitData.shortDescription
+    );
+
+    this.stepsForm.controls.fourthStep.controls.startDate.setValue(
       this.habitDialogData.habitData.startDate
     );
 
-    this.habitForm.controls.endDate.setValue(
-      this.habitDialogData.habitData.endDate
-    );
-
-    this.habitForm.controls.priority.setValue(
+    this.stepsForm.controls.fourthStep.controls.priority.setValue(
       this.habitDialogData.habitData.priority
     );
 
-    this.habitForm.controls.evalMethod.setValue(
-      this.habitDialogData.habitData.evalMethod
+    this.stepsForm.controls.fourthStep.controls.endDate.setValue(
+      this.habitDialogData.habitData.endDate
     );
 
     switch (this.habitDialogData.habitData.evalMethod[0]) {

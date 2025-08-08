@@ -16,6 +16,7 @@ export class HabitToday {
   public readonly habitData = input<HabitType>();
 
   evalHabit() {
+    // not implemented
     console.log(this.habitData());
   }
 }

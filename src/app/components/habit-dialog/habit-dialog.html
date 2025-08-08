@@ -2,8 +2,13 @@
   {{ habitDialogData.type | titlecase }} Habit
 </h2>
 <mat-dialog-content class="!pb-1">
-  <mat-stepper linear [formGroup]="habitForm" labelPosition="bottom" #stepper>
-    <mat-step [stepControl]="habitForm.controls.color">
+  <mat-stepper linear [formGroup]="stepsForm" labelPosition="bottom" #stepper>
+    <!-- First Step -->
+
+    <mat-step
+      [stepControl]="stepsForm.controls.firstStep"
+      formGroupName="firstStep"
+    >
       <ng-template matStepLabel>Color</ng-template>
       <ng-template matStepContent>
         <h2 class="text-xl pt-4 text-center">Pick a color</h2>
@@ -35,7 +40,13 @@
         </div>
       </ng-template>
     </mat-step>
-    <mat-step [stepControl]="habitForm.controls.title">
+
+    <!-- Second Step -->
+
+    <mat-step
+      [stepControl]="stepsForm.controls.secondStep"
+      formGroupName="secondStep"
+    >
       <ng-template matStepLabel>Title & Definition</ng-template>
       <ng-template matStepContent>
         <h2 class="text-xl pt-4 text-center">Define your habit</h2>
@@ -44,11 +55,13 @@
             hideRequiredMarker
             floatLabel="always"
             appearance="outline"
-            [class]="{'no-bottom-align': habitForm.controls.title.untouched || habitForm.controls.title.valid}"
+            [class]="{'no-bottom-align': 
+            stepsForm.controls.secondStep.controls.title.untouched 
+            || stepsForm.controls.secondStep.controls.title.valid}"
           >
             <mat-label>Habit Title</mat-label>
             <input matInput formControlName="title" required title="" />
-            @if (habitForm.controls.title.invalid) {
+            @if (stepsForm.controls.secondStep.controls.title.invalid) {
             <mat-error class="text-sm">Enter a name</mat-error>
             }
           </mat-form-field>
@@ -78,14 +91,20 @@
           <button
             matButton
             matStepperNext
-            [disabled]="habitForm.controls.title.invalid"
+            [disabled]="stepsForm.controls.secondStep.invalid"
           >
             Next
           </button>
         </div>
       </ng-template>
     </mat-step>
-    <mat-step [stepControl]="habitForm.controls.frequency">
+
+    <!-- Third Step -->
+
+    <mat-step
+      [stepControl]="stepsForm.controls.thirdStep"
+      formGroupName="thirdStep"
+    >
       <ng-template matStepLabel>Frequency</ng-template>
       <ng-template matStepContent>
         <app-frequency-picker
@@ -97,14 +116,20 @@
           <button
             matButton
             matStepperNext
-            [disabled]="habitForm.controls.frequency.invalid"
+            [disabled]="stepsForm.controls.thirdStep.invalid"
           >
             Next
           </button>
         </div>
       </ng-template>
     </mat-step>
-    <mat-step [stepControl]="habitForm.controls.startDate">
+
+    <!-- Fourth Step -->
+
+    <mat-step
+      [stepControl]="stepsForm.controls.fourthStep"
+      formGroupName="fourthStep"
+    >
       <ng-template matStepLabel>Start & End</ng-template>
       <ng-template matStepContent>
         <div class="flex flex-col items-center">
@@ -139,8 +164,8 @@
             />
           </mat-form-field>
 
-          @if (habitForm.controls.priority.invalid &&
-          habitForm.controls.priority.touched ) {
+          @if (stepsForm.controls.fourthStep.controls.priority.invalid &&
+          stepsForm.controls.fourthStep.controls.priority.touched ) {
           <mat-error class="text-sm">
             Enter an integer greater than zero
           </mat-error>

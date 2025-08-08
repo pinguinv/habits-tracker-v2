@@ -50,7 +50,6 @@ export class TimePeriodPicker {
 
       untracked(() => {
         const timePeriodArr: string[] = timePeriodInputStr.split(':');
-        console.log(timePeriodArr);
 
         this.timePeriodFormControl.setValue(
           new TimePeriodData(
