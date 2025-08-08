@@ -1,0 +1,22 @@
+.time-period-picker-input-container {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.time-period-picker-input-element {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  color: inherit;
+  font: inherit;
+
+  transition: opacity 200ms;
+
+  &:disabled,
+  &:disabled + span {
+    opacity: 0.5;
+  }
+}

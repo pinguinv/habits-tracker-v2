@@ -1,0 +1,83 @@
+@switch (pickedEvalMethod()) {@case ("Numeric") {
+<div>
+  <div class="flex flex-col gap-4 py-2">
+    <div class="flex gap-4">
+      <mat-form-field
+        appearance="outline"
+        class="no-bottom-align max-h-fit w-full"
+      >
+        <mat-select [(value)]="specifier">
+          @for (numericSpecifier of numericSpecifiers; track $index) {
+          <mat-option [value]="numericSpecifier.symbol">
+            {{numericSpecifier.text}}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="outline"
+        hideRequiredMarker
+        class="w-full"
+        [class]="{'no-bottom-align': numericGoal.valid || numericGoal.untouched}"
+      >
+        <mat-label>Goal</mat-label>
+        <input
+          matInput
+          type="number"
+          [formControl]="numericGoal"
+          [required]="pickedEvalMethod() === 'Numeric' && specifier() !== 'A'"
+          (input)="emitEncodedEvalMethod()"
+          title=""
+        />
+        <mat-error class="text-sm max-[450px]:absolute max-[450px]:start-1"
+          >Enter a positive integer</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-4">
+      <mat-form-field
+        appearance="outline"
+        class="no-bottom-align max-h-fit w-full"
+      >
+        <mat-label>Unit (Optional)</mat-label>
+        <input matInput maxlength="20" [(ngModel)]="units" />
+      </mat-form-field>
+
+      <div class="flex justify-start items-center w-full">
+        <p>a day.</p>
+      </div>
+    </div>
+  </div>
+  <p class="text-center py-2">e.g. Drink water. Exactly 2 liters a day.</p>
+</div>
+} @case ("Timer") {
+<div>
+  <div class="flex flex-col gap-4 py-2">
+    <mat-form-field appearance="outline" class="no-bottom-align col-span-2">
+      <mat-select [(value)]="specifier">
+        @for (timerSpecifiers of timerSpecifiers; track $index) {
+        <mat-option [value]="timerSpecifiers.symbol">
+          {{timerSpecifiers.text}}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex gap-4">
+      <app-time-period-picker
+        [disable]="timerDisabled()"
+        [timePeriodInput]="timerInput()"
+        (timePeriodValue)="updateTimerGoal($event)"
+        class="w-1/2"
+      ></app-time-period-picker>
+
+      <div class="flex justify-start items-center w-1/2 text-nowrap">
+        <p>a day.</p>
+      </div>
+    </div>
+  </div>
+  <p class="text-center py-2">e.g. Read a Book. At least 30 minutes a day.</p>
+</div>
+} @default { } }

@@ -1,0 +1,13 @@
+<mat-form-field
+  appearance="outline"
+  class="w-full"
+  [class]="{'no-bottom-align': timePeriodFormControl.valid || timePeriodFormControl.untouched || timePeriodFormControl.disabled}"
+>
+  <app-time-period-picker-input
+    [formControl]="timePeriodFormControl"
+  ></app-time-period-picker-input>
+
+  @if (timePeriodFormControl.invalid && timePeriodFormControl.touched) {
+  <mat-error class="text-sm">Enter a correct time period</mat-error>
+  }
+</mat-form-field>

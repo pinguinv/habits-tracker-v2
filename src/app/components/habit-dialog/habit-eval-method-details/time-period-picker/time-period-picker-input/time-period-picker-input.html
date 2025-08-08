@@ -1,0 +1,47 @@
+<div
+  role="group"
+  class="time-period-picker-input-container"
+  [formGroup]="timePeriodPartsForm"
+  [attr.aria-labelledby]="_formField?.getLabelId()"
+  (focusin)="onFocusIn()"
+  (focusout)="onFocusOut($event)"
+>
+  <input
+    class="time-period-picker-input-element"
+    formControlName="hours"
+    name="hours"
+    size="2"
+    minlength="2"
+    maxlength="2"
+    aria-label="Hours"
+    (keydown)="handleKeyDown($event, timePeriodPartsForm.controls.hours, minutes)"
+    (keydown.backspace)="handleBackspace($event, timePeriodPartsForm.controls.hours)"
+    #hours
+  />
+  <span class="">:</span>
+  <input
+    class="time-period-picker-input-element"
+    formControlName="minutes"
+    name="minutes"
+    minlength="2"
+    maxlength="2"
+    size="2"
+    aria-label="Minutes"
+    (keydown)="handleKeyDown($event, timePeriodPartsForm.controls.minutes, seconds)"
+    (keydown.backspace)="handleBackspace($event, timePeriodPartsForm.controls.minutes, hours)"
+    #minutes
+  />
+  <span class="time-period-picker-input-spacer">:</span>
+  <input
+    class="time-period-picker-input-element"
+    formControlName="seconds"
+    name="seconds"
+    minlength="2"
+    maxlength="2"
+    size="2"
+    aria-label="Seconds"
+    (keydown)="handleKeyDown($event, timePeriodPartsForm.controls.seconds)"
+    (keydown.backspace)="handleBackspace($event, timePeriodPartsForm.controls.seconds, minutes)"
+    #seconds
+  />
+</div>

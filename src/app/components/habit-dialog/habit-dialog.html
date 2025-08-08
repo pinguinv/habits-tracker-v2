@@ -7,18 +7,28 @@
       <ng-template matStepLabel>Color</ng-template>
       <ng-template matStepContent>
         <h2 class="text-xl pt-4 text-center">Pick a color</h2>
-        <div class="pt-4">
-          <mat-radio-group
-            aria-label="Color"
-            class="flex flex-wrap justify-center gap-x-3"
-            formControlName="color"
-          >
-            <mat-radio-button value="cyan">Cyan</mat-radio-button>
-            <mat-radio-button value="violet">Violet</mat-radio-button>
-            <mat-radio-button value="red">Red</mat-radio-button>
-            <mat-radio-button value="orange">Orange</mat-radio-button>
-          </mat-radio-group>
-        </div>
+        <mat-radio-group
+          aria-label="Color"
+          class="flex flex-wrap justify-center gap-x-3"
+          formControlName="color"
+        >
+          <mat-radio-button value="cyan">Cyan</mat-radio-button>
+          <mat-radio-button value="violet">Violet</mat-radio-button>
+          <mat-radio-button value="red">Red</mat-radio-button>
+          <mat-radio-button value="orange">Orange</mat-radio-button>
+        </mat-radio-group>
+        <h2 class="text-xl pt-4 text-center">Pick an evaluation method</h2>
+
+        <mat-radio-group
+          aria-label="Evaluation Method"
+          class="flex flex-wrap justify-center gap-x-3"
+          [(ngModel)]="evalMethodRadioValue"
+          [ngModelOptions]="{standalone: true}"
+        >
+          <mat-radio-button value="YesNo">Yes/no</mat-radio-button>
+          <mat-radio-button value="Numeric">A numeric value</mat-radio-button>
+          <mat-radio-button value="Timer">Timer</mat-radio-button>
+        </mat-radio-group>
         <div class="w-full flex justify-between pt-4">
           <button matButton matDialogClose>Cancel</button>
           <button matButton matStepperNext>Next</button>
@@ -26,7 +36,7 @@
       </ng-template>
     </mat-step>
     <mat-step [stepControl]="habitForm.controls.title">
-      <ng-template matStepLabel>Title & Description</ng-template>
+      <ng-template matStepLabel>Title & Definition</ng-template>
       <ng-template matStepContent>
         <h2 class="text-xl pt-4 text-center">Define your habit</h2>
         <div class="grid grid-cols-1 gap-4 pt-4">
@@ -43,6 +53,12 @@
             }
           </mat-form-field>
 
+          <app-habit-eval-method-details
+            [pickedEvalMethod]="evalMethodRadioValue()"
+            [evalMethodInput]="habitDialogData.type === 'edit' ? habitDialogData.habitData.evalMethod : ''"
+            (encodedEvalMethodEmit)="setEvalMethod($event)"
+          ></app-habit-eval-method-details>
+
           <mat-form-field
             floatLabel="always"
             appearance="outline"
@@ -53,6 +69,7 @@
               matInput
               formControlName="shortDescription"
               class="min-h-6"
+              rows="1"
             ></textarea>
           </mat-form-field>
         </div>

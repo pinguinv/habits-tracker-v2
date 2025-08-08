@@ -13,6 +13,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-06',
       endDate: '',
       priority: 1,
+      evalMethod: 'NM,liters,2.0',
     },
     {
       id: 1,
@@ -23,6 +24,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-07',
       endDate: '',
       priority: 2,
+      evalMethod: 'TA,0',
     },
     {
       id: 2,
@@ -33,6 +35,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-08',
       endDate: '',
       priority: 1,
+      evalMethod: 'TM,00:30:00',
     },
     {
       id: 3,
@@ -43,6 +46,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-09',
       endDate: '',
       priority: 1,
+      evalMethod: 'TM,00:10:00',
     },
     {
       id: 4,
@@ -53,6 +57,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-02-25',
       endDate: '',
       priority: 1,
+      evalMethod: 'B',
     },
     {
       id: 5,
@@ -63,6 +68,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-04',
       endDate: '',
       priority: 4,
+      evalMethod: 'TL,00:05:00',
     },
     {
       id: 6,
@@ -73,6 +79,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-06-30',
       endDate: '',
       priority: 1,
+      evalMethod: 'B',
     },
     {
       id: 7,
@@ -83,6 +90,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-05-02',
       endDate: '',
       priority: 2,
+      evalMethod: 'TM,00:05:00',
     },
     {
       id: 8,
@@ -93,6 +101,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-01-04',
       endDate: '',
       priority: 3,
+      evalMethod: 'B',
     },
     {
       id: 9,
@@ -103,6 +112,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-01-01',
       endDate: '2025-08-09',
       priority: 5,
+      evalMethod: 'TA,0',
     },
     {
       id: 10,
@@ -113,6 +123,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-10',
       endDate: '2025-08-09',
       priority: 1,
+      evalMethod: 'B',
     },
     {
       id: 11,
@@ -123,6 +134,7 @@ export function getMockDataWithSomeDelay(): Observable<HabitType[]> {
       startDate: '2025-07-03',
       endDate: '',
       priority: 1,
+      evalMethod: 'NE,items,3.0',
     },
   ];
 

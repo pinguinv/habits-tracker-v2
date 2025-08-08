@@ -25,11 +25,13 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HabitsStore } from '../../store/habits.store';
 import { FrequencyPicker } from './frequency-picker/frequency-picker';
 import { StartEndDatePicker } from './start-end-date-picker/start-end-date-picker';
+import { HabitEvalMethodDetails } from './habit-eval-method-details/habit-eval-method-details';
 
 import { HabitFormGroupType } from '../../types/habit-form-group.type';
 import { HabitType } from '../../types/habit.type';
 import { HabitDatesType } from '../../types/habit-dates.type';
 import { HabitDialogDataType } from '../../types/habit-dialog.type';
+import { pickedEvalMethodType } from '../../types/picked-eval-method.type';
 
 import { greaterThan } from '../../shared/greater-than.directive';
 import { integerOnly } from '../../shared/integer-only.directive';
@@ -51,6 +53,7 @@ import { integerOnly } from '../../shared/integer-only.directive';
     MatRadioModule,
     FrequencyPicker,
     StartEndDatePicker,
+    HabitEvalMethodDetails,
   ],
   templateUrl: './habit-dialog.html',
   styleUrl: './habit-dialog.scss',
@@ -65,6 +68,8 @@ export class HabitDialog {
   protected readonly habitForm: FormGroup<HabitFormGroupType>;
 
   protected readonly disableSaveButton = signal(true);
+  protected readonly evalMethodRadioValue =
+    signal<pickedEvalMethodType>('YesNo');
 
   constructor() {
     this.habitForm = new FormGroup({
@@ -80,38 +85,17 @@ export class HabitDialog {
         integerOnly(),
         greaterThan(0),
       ]),
+      evalMethod: new FormControl('', [Validators.required]),
     });
 
     if (this.habitDialogData.type === 'edit') {
-      this.habitForm.controls.title.setValue(
-        this.habitDialogData.habitData.title
-      );
-
-      this.habitForm.controls.shortDescription.setValue(
-        this.habitDialogData.habitData.shortDescription
-      );
-
-      this.habitForm.controls.color.setValue(
-        this.habitDialogData.habitData.color
-      );
-
-      this.habitForm.controls.startDate.setValue(
-        this.habitDialogData.habitData.startDate
-      );
-
-      this.habitForm.controls.endDate.setValue(
-        this.habitDialogData.habitData.endDate
-      );
-
-      this.habitForm.controls.priority.setValue(
-        this.habitDialogData.habitData.priority
-      );
+      this.loadHabitDataToForm();
     }
 
     this.disableSaveButton.set(this.habitForm.invalid);
   }
 
-  saveAndCloseDialog() {
+  protected saveAndCloseDialog() {
     if (this.disableSaveButton()) return;
 
     const habit: HabitType = {
@@ -123,6 +107,7 @@ export class HabitDialog {
       startDate: this.habitForm.controls.startDate.value,
       endDate: this.habitForm.controls.endDate.value,
       priority: this.habitForm.controls.priority.value,
+      evalMethod: this.habitForm.controls.evalMethod.value,
     };
 
     console.log(habit);
@@ -142,18 +127,68 @@ export class HabitDialog {
     this.dialogRef.close();
   }
 
-  setFrequency(encodedFrequency: string) {
+  protected setFrequency(encodedFrequency: string) {
     this.habitForm.controls.frequency.setValue(encodedFrequency);
   }
 
-  setDates(dates: HabitDatesType) {
+  protected setDates(dates: HabitDatesType) {
     this.habitForm.controls.startDate.setValue(dates.startDate);
     this.habitForm.controls.endDate.setValue(dates.endDate);
 
     this.disableSaveButton.set(this.habitForm.invalid || !dates.valid);
   }
 
-  onPriorityChange() {
+  protected onPriorityChange() {
     this.disableSaveButton.set(this.habitForm.invalid);
+  }
+
+  protected setEvalMethod(encodedEvalMethod: string) {
+    console.log(encodedEvalMethod);
+    this.habitForm.controls.evalMethod.setValue(encodedEvalMethod);
+    this.disableSaveButton.set(this.habitForm.invalid);
+  }
+
+  private loadHabitDataToForm() {
+    this.habitForm.controls.title.setValue(
+      this.habitDialogData.habitData.title
+    );
+
+    this.habitForm.controls.shortDescription.setValue(
+      this.habitDialogData.habitData.shortDescription
+    );
+
+    this.habitForm.controls.color.setValue(
+      this.habitDialogData.habitData.color
+    );
+
+    this.habitForm.controls.startDate.setValue(
+      this.habitDialogData.habitData.startDate
+    );
+
+    this.habitForm.controls.endDate.setValue(
+      this.habitDialogData.habitData.endDate
+    );
+
+    this.habitForm.controls.priority.setValue(
+      this.habitDialogData.habitData.priority
+    );
+
+    this.habitForm.controls.evalMethod.setValue(
+      this.habitDialogData.habitData.evalMethod
+    );
+
+    switch (this.habitDialogData.habitData.evalMethod[0]) {
+      case 'N':
+        this.evalMethodRadioValue.set('Numeric');
+        break;
+
+      case 'T':
+        this.evalMethodRadioValue.set('Timer');
+        break;
+
+      case 'B':
+      default:
+        this.evalMethodRadioValue.set('YesNo');
+    }
   }
 }

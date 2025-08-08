@@ -72,14 +72,13 @@ export class FrequencyPicker implements OnInit {
     this.frequencyRadioSelect = encodedFrequencyIn[0];
 
     switch (this.frequencyRadioSelect) {
-      case 'D':
-        break;
       case 'W':
         this.decodeStateWeekDays(encodedFrequencyIn);
         break;
       case 'R':
         this.decodeStateRepeat(encodedFrequencyIn);
         break;
+      case 'D':
       default:
         this.frequencyRadioSelect = 'D';
     }

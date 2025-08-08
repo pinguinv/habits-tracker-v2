@@ -8,4 +8,5 @@ export type HabitFormGroupType = {
   startDate: FormControl<string>;
   endDate: FormControl<string>;
   priority: FormControl<number>;
+  evalMethod: FormControl<string>;
 };
