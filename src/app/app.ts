@@ -47,7 +47,7 @@ export class App implements OnDestroy {
     { name: 'Today', path: '/' },
     { name: 'Habits', path: '/habits' },
   ];
-  // why: to show or hide 'add habit button'
+  // To show or hide 'add habit button'
   protected readonly routeSignal = toSignal(
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
@@ -82,7 +82,7 @@ export class App implements OnDestroy {
       this.isDarkTheme.set(true);
       document.documentElement.classList.add('dark');
     }
-    // remove preload class with plain JS
+    // Remove preload class with plain JS
     setTimeout(() => {
       document.body.classList.remove('preload');
     }, 500);

@@ -23,10 +23,10 @@ import { TimePeriodPicker } from './time-period-picker/time-period-picker';
 import { getSpecifiers } from '../../../shared/specifiers';
 import { SpecifierSymbols } from '../../../shared/specifier-symbols';
 import { greaterThan } from '../../../shared/greater-than.directive';
+import { integerOnly } from '../../../shared/integer-only.directive';
 
 import { pickedEvalMethodType } from '../../../types/picked-eval-method.type';
 import { SpecifierSymbolType } from '../../../types/specifier.types';
-import { integerOnly } from '../../../shared/integer-only.directive';
 
 @Component({
   selector: 'app-habit-eval-method-details',
@@ -42,9 +42,9 @@ import { integerOnly } from '../../../shared/integer-only.directive';
   styleUrl: './habit-eval-method-details.scss',
 })
 export class HabitEvalMethodDetails implements OnInit {
-  public readonly pickedEvalMethod = input.required<pickedEvalMethodType>();
-  public readonly evalMethodInput = input.required<string>();
-  public readonly encodedEvalMethodEmit = output<string>();
+  readonly encodedEvalMethodEmit = output<string>();
+  readonly pickedEvalMethod = input.required<pickedEvalMethodType>();
+  readonly evalMethodInput = input.required<string>();
 
   // Used in template
   protected readonly numericSpecifiers = getSpecifiers();
@@ -94,6 +94,7 @@ export class HabitEvalMethodDetails implements OnInit {
       });
     });
 
+    // On one of these Change
     effect(() => {
       this.timerGoal();
       this.specifier();
@@ -110,7 +111,7 @@ export class HabitEvalMethodDetails implements OnInit {
 
     if (evalMethodInput === '') return;
 
-    // decode and set initial state
+    // Decode and set initial data to inputs if provided
     switch (evalMethodInput[0]) {
       case 'N':
         this.decodeNumeric(evalMethodInput);

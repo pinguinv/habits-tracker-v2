@@ -31,7 +31,7 @@ export const HabitsStore = signalStore(
 
       let isValid = false;
 
-      // First char
+      // First char is the type of frequency - daily/weekly/repeat
       switch (habit.frequency[0]) {
         case 'D':
           isValid = true;

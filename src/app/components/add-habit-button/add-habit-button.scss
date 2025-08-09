@@ -9,11 +9,9 @@
 
 @keyframes slide-out {
   0% {
-    // @apply top-4;
     @apply end-4;
   }
   100% {
-    // @apply -top-40;
     @apply -end-16;
   }
 }

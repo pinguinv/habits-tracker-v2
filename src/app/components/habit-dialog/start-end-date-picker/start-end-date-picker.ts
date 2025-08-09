@@ -2,10 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
-  model,
   OnInit,
   output,
-  WritableSignal,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -45,8 +44,8 @@ import { HabitDatesType } from '../../../types/habit-dates.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StartEndDatePicker implements OnInit {
-  public readonly datesInput = input<HabitDatesType>();
-  public readonly datesChangedOutput = output<HabitDatesType>();
+  readonly datesInput = input<HabitDatesType>();
+  readonly datesChangedOutput = output<HabitDatesType>();
 
   protected readonly startDateSelected = new FormControl<moment.Moment>(
     // Creating new Moment in this way is necessary to prevent bug
@@ -63,10 +62,10 @@ export class StartEndDatePicker implements OnInit {
     greaterThan(0),
   ]);
 
-  protected readonly minEndDate: WritableSignal<moment.Moment> = model(null);
+  protected readonly minEndDate = signal<moment.Moment>(null);
 
   ngOnInit() {
-    // set initial state if provided
+    // Set initial state if provided
     if (this.datesInput() !== null) {
       const initialStartDate = moment(this.datesInput().startDate);
       const initialEndDate: moment.Moment | null =
@@ -97,7 +96,7 @@ export class StartEndDatePicker implements OnInit {
     this.onStartDateChanged();
   }
 
-  openDatePicker(datePicker: MatDatepicker<unknown>) {
+  protected openDatePicker(datePicker: MatDatepicker<unknown>) {
     datePicker.touchUi = false;
 
     if (window.innerWidth <= 540) datePicker.touchUi = true;
@@ -105,7 +104,7 @@ export class StartEndDatePicker implements OnInit {
     datePicker.open();
   }
 
-  setIsEndDateEnabled(enabled: boolean) {
+  protected setIsEndDateEnabled(enabled: boolean) {
     this.isEndDateEnabled.setValue(enabled);
 
     if (enabled) {
@@ -119,7 +118,7 @@ export class StartEndDatePicker implements OnInit {
     this.emitChangedDates();
   }
 
-  onStartDateChanged() {
+  protected onStartDateChanged() {
     if (this.startDateSelected.invalid) {
       this.emitChangedDates(true);
       return;
@@ -131,7 +130,7 @@ export class StartEndDatePicker implements OnInit {
     this.emitChangedDates();
   }
 
-  onEndDateChanged() {
+  protected onEndDateChanged() {
     if (this.endDateSelected.invalid) {
       this.duration.setValue(null);
       this.emitChangedDates(true);
@@ -143,7 +142,7 @@ export class StartEndDatePicker implements OnInit {
     this.emitChangedDates();
   }
 
-  onDurationChanged() {
+  protected onDurationChanged() {
     if (this.duration.invalid) {
       this.endDateSelected.setValue(null);
       this.emitChangedDates(true);
@@ -155,7 +154,7 @@ export class StartEndDatePicker implements OnInit {
     this.emitChangedDates();
   }
 
-  updateMinEndDate() {
+  private updateMinEndDate() {
     const updatedMinEndDate = this.startDateSelected.value
       .clone()
       .add(1, 'day');
@@ -163,7 +162,7 @@ export class StartEndDatePicker implements OnInit {
     this.minEndDate.set(updatedMinEndDate);
   }
 
-  updateEndDate() {
+  private updateEndDate() {
     const updatedEndDate = this.startDateSelected.value
       .clone()
       .add(this.duration.value, 'days');
@@ -172,7 +171,7 @@ export class StartEndDatePicker implements OnInit {
     this.endDateSelected.markAsTouched();
   }
 
-  updateDuration() {
+  private updateDuration() {
     if (this.endDateSelected.value === null) return;
 
     const difference = this.endDateSelected.value.diff(
@@ -184,7 +183,7 @@ export class StartEndDatePicker implements OnInit {
     this.duration.markAsTouched();
   }
 
-  emitChangedDates(emitInvalid?: boolean) {
+  private emitChangedDates(emitInvalid?: boolean) {
     if (emitInvalid) {
       this.datesChangedOutput.emit({
         valid: false,

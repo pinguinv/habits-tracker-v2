@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -27,7 +28,6 @@ import { FrequencyPicker } from './frequency-picker/frequency-picker';
 import { StartEndDatePicker } from './start-end-date-picker/start-end-date-picker';
 import { HabitEvalMethodDetails } from './habit-eval-method-details/habit-eval-method-details';
 
-import { StepsFormGroupType } from '../../types/steps-form-group.type';
 import { HabitType } from '../../types/habit.type';
 import { HabitDatesType } from '../../types/habit-dates.type';
 import { HabitDialogDataType } from '../../types/habit-dialog.type';
@@ -35,6 +35,25 @@ import { pickedEvalMethodType } from '../../types/picked-eval-method.type';
 
 import { greaterThan } from '../../shared/greater-than.directive';
 import { integerOnly } from '../../shared/integer-only.directive';
+
+type StepsFormGroupType = {
+  firstStep: FormGroup<{
+    color: FormControl<string>;
+  }>;
+  secondStep: FormGroup<{
+    title: FormControl<string>;
+    evalMethod: FormControl<string>;
+    shortDescription: FormControl<string>;
+  }>;
+  thirdStep: FormGroup<{
+    frequency: FormControl<string>;
+  }>;
+  fourthStep: FormGroup<{
+    startDate: FormControl<string>;
+    priority: FormControl<number>;
+    endDate: FormControl<string>;
+  }>;
+};
 
 @Component({
   selector: 'app-add-habit-dialog',
@@ -59,19 +78,17 @@ import { integerOnly } from '../../shared/integer-only.directive';
   styleUrl: './habit-dialog.scss',
 })
 export class HabitDialog {
-  private readonly dialogRef = inject(MatDialogRef<HabitDialog>);
-  private readonly store = inject(HabitsStore);
+  protected readonly stepsForm: FormGroup<StepsFormGroupType>;
+  protected readonly disableSaveButton = signal(true);
+  protected readonly evalMethodRadioValue =
+    signal<pickedEvalMethodType>('YesNo');
   protected readonly habitDialogData = inject<HabitDialogDataType | null>(
     MAT_DIALOG_DATA
   );
 
+  private readonly dialogRef = inject(MatDialogRef<HabitDialog>);
+  private readonly store = inject(HabitsStore);
   private readonly formBuilder = inject(FormBuilder);
-
-  protected readonly stepsForm: FormGroup<StepsFormGroupType>;
-
-  protected readonly disableSaveButton = signal(true);
-  protected readonly evalMethodRadioValue =
-    signal<pickedEvalMethodType>('YesNo');
 
   constructor() {
     this.stepsForm = this.formBuilder.group({

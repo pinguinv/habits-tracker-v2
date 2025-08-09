@@ -13,10 +13,10 @@ import { HabitType } from '../../../types/habit.type';
   styleUrl: './habit-today.scss',
 })
 export class HabitToday {
-  public readonly habitData = input<HabitType>();
+  readonly habitData = input<HabitType>();
 
-  evalHabit() {
-    // not implemented
+  protected evalHabit() {
+    // Not implemented yet
     console.log(this.habitData());
   }
 }

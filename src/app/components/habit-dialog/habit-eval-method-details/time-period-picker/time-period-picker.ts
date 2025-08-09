@@ -26,9 +26,10 @@ import { TimePeriodData } from '../../../../shared/time-period-data';
   styleUrl: './time-period-picker.scss',
 })
 export class TimePeriodPicker {
-  public readonly disable = input<boolean>();
-  public readonly timePeriodInput = input<string | null>();
-  public readonly timePeriodValue = output<string>();
+  readonly timePeriodValue = output<string>();
+  readonly disable = input<boolean>();
+  readonly timePeriodInput = input<string>();
+
   protected readonly timePeriodFormControl = new FormControl<TimePeriodData>(
     null,
     [Validators.required]

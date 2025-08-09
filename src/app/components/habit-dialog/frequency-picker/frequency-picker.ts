@@ -37,18 +37,18 @@ import { WeekDayType } from '../../../types/week-day.type';
   styleUrl: './frequency-picker.scss',
 })
 export class FrequencyPicker implements OnInit {
-  public readonly frequencyInput = input<string>();
-  protected readonly frequencyChangedOutput = output<string>();
+  readonly frequencyInput = input.required<string>();
+  readonly frequencyChangedOutput = output<string>();
 
+  // Shared properties
   protected frequencyRadioSelect = 'D';
   protected encodedFrequency = '';
 
-  // specific days of the week option
-  protected showWeekError = false;
+  // Specific days of the week option
   protected readonly weekDays: WeekDayType[] = getWeekDays();
+  protected showWeekError = false;
 
-  // repeat option
-  protected alternateDays = false;
+  // Repeat option
   protected readonly repeatDays = new FormControl(2, [
     Validators.required,
     greaterThan(1),
@@ -64,9 +64,10 @@ export class FrequencyPicker implements OnInit {
     greaterThan(0),
     integerOnly(),
   ]);
+  protected alternateDays = false;
 
   ngOnInit() {
-    // decode and set initial state
+    // Decode and set initial state
     const encodedFrequencyIn = this.frequencyInput();
 
     this.frequencyRadioSelect = encodedFrequencyIn[0];
@@ -84,7 +85,32 @@ export class FrequencyPicker implements OnInit {
     }
   }
 
-  decodeStateWeekDays(encodedFrequency: string): void {
+  protected emitEncodedFrequency() {
+    this.encodedFrequency = this.determineEncodedFrequency();
+    this.frequencyChangedOutput.emit(this.encodedFrequency);
+  }
+
+  protected setFrequencyRadioSelect(selected: string) {
+    this.frequencyRadioSelect = selected;
+    this.emitEncodedFrequency();
+  }
+
+  protected updateWeekDayChecked(newCheckedState: boolean, index: number) {
+    this.weekDays[index].checked = newCheckedState;
+    this.showWeekError = true;
+    this.emitEncodedFrequency();
+  }
+
+  protected preventClosingCurrentPanel(
+    expansionPanel: MatExpansionPanel,
+    selected: string
+  ) {
+    if (this.frequencyRadioSelect === selected) {
+      expansionPanel.open();
+    }
+  }
+
+  private decodeStateWeekDays(encodedFrequency: string): void {
     const weekDaysNums: string[] = encodedFrequency.substring(1).split(',');
 
     for (const weekDayNumStr of weekDaysNums) {
@@ -94,10 +120,11 @@ export class FrequencyPicker implements OnInit {
     }
   }
 
-  decodeStateRepeat(encodedFrequency: string): void {
+  private decodeStateRepeat(encodedFrequency: string): void {
     this.alternateDays = encodedFrequency[1] === 'A';
 
     if (this.alternateDays) {
+      // Alternate days option selected
       const alternatingDays: string[] = encodedFrequency
         .substring(2)
         .split(',');
@@ -105,18 +132,13 @@ export class FrequencyPicker implements OnInit {
       this.activeDays.setValue(parseInt(alternatingDays[0]));
       this.restDays.setValue(parseInt(alternatingDays[1]));
     } else {
-      // encodedOptions === 'R'
+      // Repeat option selected
       const repeatDays = encodedFrequency.substring(2);
       this.repeatDays.setValue(parseInt(repeatDays));
     }
   }
 
-  emitEncodedFrequency() {
-    this.encodedFrequency = this.determineEncodedFrequency();
-    this.frequencyChangedOutput.emit(this.encodedFrequency);
-  }
-
-  determineEncodedFrequency(): string {
+  private determineEncodedFrequency(): string {
     let encodedStr = 'D';
     let isValid = false;
 
@@ -164,28 +186,7 @@ export class FrequencyPicker implements OnInit {
         isValid = false;
     }
 
-    // '' if not valid
-    // anything if valid.
+    // Empty string if not valid, encoded frequency if valid
     return isValid ? encodedStr : '';
-  }
-
-  setFrequencyRadioSelect(selected: string) {
-    this.frequencyRadioSelect = selected;
-    this.emitEncodedFrequency();
-  }
-
-  updateWeekDayChecked(newCheckedState: boolean, index: number) {
-    this.weekDays[index].checked = newCheckedState;
-    this.showWeekError = true;
-    this.emitEncodedFrequency();
-  }
-
-  preventClosingCurrentPanel(
-    expansionPanel: MatExpansionPanel,
-    selected: string
-  ) {
-    if (this.frequencyRadioSelect === selected) {
-      expansionPanel.open();
-    }
   }
 }

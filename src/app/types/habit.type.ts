@@ -11,12 +11,12 @@ export type HabitType = {
   evalMethod: string;
 };
 
-// frequency encoding:
-//  every day = 'D'
-//  specific days of the week = 'W0,1,2,3,4,5,6'
+// Frequency encoding:
+//  Every day = 'D'
+//  Specific days of the week = 'W0,1,2,3,4,5,6'
 //      'W{dayOfTheWeek},{dayOfTheWeek}...'
 //    dayOfTheWeek: 0-6
-//  repeat, = 'RR2' || 'RA2,1'
+//  Repeat = 'RR2' || 'RA2,1'
 //      'RR{daysInterval}' || 'RA{daysDoTheHabit},{daysRest}'
 //    daysInterval: > 1
 //    daysDoTheHabit: > 0
@@ -25,9 +25,9 @@ export type HabitType = {
 // startDate & endDate:
 //    YYYY-MM-DD
 
-// evaluation method encoding:
-//  boolean (yes/no) = 'B'
-//  numeric value = 'N'
+// Evaluation method encoding:
+//  Boolean (yes/no) = 'B'
+//  Numeric value = 'N'
 //      'N{specifier},{units},{value}'
 //    specifier:
 //      - any value = 'A'
@@ -36,7 +36,7 @@ export type HabitType = {
 //      - exactly = 'E'
 //    units: string - user input (optional)
 //    value: floating point number (if specifier is not 'A')
-//  timer = 'T'
+//  Timer = 'T'
 //      'T{specifier},{value}'
 //    specifier:
 //      - any value = 'A'

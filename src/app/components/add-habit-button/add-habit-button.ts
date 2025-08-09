@@ -19,12 +19,11 @@ import { HabitDialogDataType } from '../../types/habit-dialog.type';
   styleUrl: './add-habit-button.scss',
 })
 export class AddHabitButton {
-  private readonly dialog = inject(MatDialog);
-  public readonly route = input.required<string>();
+  readonly route = input.required<string>();
 
   protected readonly showButton = computed(() => this.route() === '/habits');
 
-  // conditionally rendering so there is no
+  // Conditionally rendering so there is no
   // animation of disabled button sliding out
   // during window resizing/refreshing
   protected readonly renderButton = toSignal(
@@ -34,7 +33,9 @@ export class AddHabitButton {
     { initialValue: true }
   );
 
-  openAddHabitDialog() {
+  private readonly dialog = inject(MatDialog);
+
+  protected openAddHabitDialog() {
     // Removing focus from button after click
     // To prevent "Blocked aria-hidden ..." warning
     (document.activeElement as HTMLElement).blur();

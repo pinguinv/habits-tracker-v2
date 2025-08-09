@@ -38,9 +38,9 @@ import { TimePeriodData } from '../../../../../shared/time-period-data';
 import { stringNumberMinMax } from '../../../../../shared/string-number-min-max.directive';
 
 type TimePeriodFormType = {
-  hours: FormControl<string | null>;
-  minutes: FormControl<string | null>;
-  seconds: FormControl<string | null>;
+  hours: FormControl<string>;
+  minutes: FormControl<string>;
+  seconds: FormControl<string>;
 };
 
 @Component({
@@ -62,18 +62,10 @@ export class TimePeriodPickerInput
     MatFormFieldControl<TimePeriodData>,
     OnDestroy
 {
-  static nextId = 0;
+  private static nextId = 0;
 
-  readonly hoursInput = viewChild.required<HTMLInputElement>('hours');
-  readonly minutesInput = viewChild.required<HTMLInputElement>('minutes');
-  readonly secondsInput = viewChild.required<HTMLInputElement>('seconds');
-
-  ngControl = inject(NgControl, { optional: true, self: true });
-
-  readonly timePeriodPartsForm: FormGroup<TimePeriodFormType>;
-
+  readonly ngControl = inject(NgControl, { optional: true, self: true });
   readonly stateChanges = new Subject<void>();
-  readonly touched = signal(false);
   readonly controlType = 'time-period-picker-input';
   readonly id = `app-time-period-picker-input-${TimePeriodPickerInput.nextId++}`;
   readonly _userAriaDescribedBy = input<string>('', {
@@ -93,15 +85,17 @@ export class TimePeriodPickerInput
     transform: booleanAttribute,
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-  onChange = (_: any) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
-
+  protected readonly hoursInput = viewChild.required<HTMLInputElement>('hours');
+  protected readonly minutesInput =
+    viewChild.required<HTMLInputElement>('minutes');
+  protected readonly secondsInput =
+    viewChild.required<HTMLInputElement>('seconds');
+  protected readonly timePeriodPartsForm: FormGroup<TimePeriodFormType>;
   protected readonly _formField = inject(MAT_FORM_FIELD, {
     optional: true,
   });
 
+  private readonly touched = signal(false);
   private readonly _focused = signal(false);
   private readonly _disabledByCva = signal(false);
   private readonly _disabled = computed(
@@ -110,6 +104,10 @@ export class TimePeriodPickerInput
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+  private onChange = (_: any) => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private onTouched = () => {};
   private focusNextInput = false;
   private currentValue: TimePeriodData | null = null;
 
@@ -131,12 +129,13 @@ export class TimePeriodPickerInput
     });
 
     effect(() => {
-      // Read signals to trigger effect.
+      // Read signals to trigger effect
       this._placeholder();
       this._required();
       this._disabled();
       this._focused();
-      // Propagate state changes.
+
+      // Propagate state changes
       untracked(() => this.stateChanges.next());
     });
 
@@ -152,9 +151,11 @@ export class TimePeriodPickerInput
     this.timePeriodPartsForm.statusChanges
       .pipe(takeUntilDestroyed())
       .subscribe(() => {
+        // Propagate state changes
         this.stateChanges.next();
       });
 
+    // On value Change
     this.timePeriodPartsForm.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((value) => {
@@ -164,12 +165,16 @@ export class TimePeriodPickerInput
           value.seconds
         );
 
+        // Additional validity check
         if (!this.isTimePeriodDifferentThanZero(timePeriod))
           this.timePeriodPartsForm.setErrors({ differentThanZero: false });
 
+        // If indeed time period changed
         if (this.areDifferentTimePeriods(timePeriod, this.currentValue)) {
           this.currentValue = timePeriod;
           this.stateChanges.next();
+          // Notify parent that value has changed
+          // and pass the value if correct, else null
           this.onChange(this.returnCorrectOrNull());
         }
       });
@@ -251,7 +256,7 @@ export class TimePeriodPickerInput
       this._focusMonitor.focusVia(this.hoursInput(), 'program');
   }
 
-  onFocusIn() {
+  protected onFocusIn() {
     this.focusNextInput = false;
 
     if (!this._focused()) {
@@ -259,7 +264,7 @@ export class TimePeriodPickerInput
     }
   }
 
-  onFocusOut(event: FocusEvent) {
+  protected onFocusOut(event: FocusEvent) {
     if (
       !this._elementRef.nativeElement.contains(event.relatedTarget as Element)
     ) {
@@ -276,7 +281,7 @@ export class TimePeriodPickerInput
     this._focusMonitor.focusVia(element, 'program');
   }
 
-  handleKeyDown(
+  protected handleKeyDown(
     event: KeyboardEvent,
     control: AbstractControl,
     nextElement?: HTMLInputElement
@@ -303,7 +308,7 @@ export class TimePeriodPickerInput
     this.focusNextInput = true;
   }
 
-  handleBackspace(
+  protected handleBackspace(
     event: Event,
     control: AbstractControl,
     prevElement?: HTMLInputElement

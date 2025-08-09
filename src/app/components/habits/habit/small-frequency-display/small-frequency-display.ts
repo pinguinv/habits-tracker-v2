@@ -11,10 +11,8 @@ import { WeekDayType } from '../../../../types/week-day.type';
   styleUrl: './small-frequency-display.scss',
 })
 export class SmallFrequencyDisplay {
-  public readonly displayColor = input.required<string>();
-  public readonly encodedFrequency = input.required<string>();
-
-  private readonly weekDays: WeekDayType[] = getWeekDays();
+  readonly displayColor = input.required<string>();
+  readonly encodedFrequency = input.required<string>();
 
   protected readonly displayedMessage = computed<string>(() => {
     const frequency = this.encodedFrequency();
@@ -56,4 +54,6 @@ export class SmallFrequencyDisplay {
 
     return message;
   });
+
+  private readonly weekDays: WeekDayType[] = getWeekDays();
 }
